@@ -20,7 +20,7 @@ public class AreaFormacaoTabela extends Control
 	public AreaFormacaoTabela() throws Exception
 	{
 		view.setBorder(new TitledBorder(new EtchedBorder(), "Área de Formação"));
-		list = new AreaFormacaoMysql().listar("");
+		list = new AreaFormacaoDAO().listar("");
 		preencherTabela();
 	}
 
@@ -57,7 +57,7 @@ public class AreaFormacaoTabela extends Control
 	public void adc(AreaFormacao o) throws Exception
 	{
 		// list.add(o);
-		list = new AreaFormacaoMysql().listar("");
+		list = new AreaFormacaoDAO().listar("");
 		preencherTabela();
 	}
 
@@ -66,7 +66,7 @@ public class AreaFormacaoTabela extends Control
 		int i = view.getTabela().convertRowIndexToModel(
 				view.getTabela().getSelectedRow());
 		// list.set(i,o);
-		list = new AreaFormacaoMysql().listar("");
+		list = new AreaFormacaoDAO().listar("");
 		preencherTabela();
 		preencherTabela();
 	}
@@ -86,8 +86,8 @@ public class AreaFormacaoTabela extends Control
 	{
 		try
 		{
-			new AreaFormacaoMysql().remover(list.get(i));
-			list = new AreaFormacaoMysql().listar("");
+			new AreaFormacaoDAO().remover(list.get(i));
+			list = new AreaFormacaoDAO().listar("");
 			preencherTabela();
 		}
 		catch (Exception e)
@@ -110,7 +110,7 @@ public class AreaFormacaoTabela extends Control
 
 	public void pesquisar(String x) throws Exception
 	{
-		list = new AreaFormacaoMysql().listar(x);
+		list = new AreaFormacaoDAO().listar(x);
 		preencherTabela();
 	}
 }

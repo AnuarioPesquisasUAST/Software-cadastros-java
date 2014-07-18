@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 import modelo.AreaConhecimento;
 import view.AreaConhecimentoView;
 import auxiliares.Autocompletee;
-import dao.AreaConhecimentoMysql;
+import dao.AreaConhecimentoDAO;
 
 public class AreaConhecimentoControl implements ActionListener
 {
@@ -46,7 +46,7 @@ public class AreaConhecimentoControl implements ActionListener
 			AreaConhecimento objt = classeView();
 			if (obj == null)
 			{
-				long x = new AreaConhecimentoMysql().inserir(objt);
+				long x = new AreaConhecimentoDAO().inserir(objt);
 				objt.setId(x);
 				JOptionPane.showMessageDialog(null,
 						"Os dados foram inseridos com sucesso", "Sucesso", 0);
@@ -57,7 +57,7 @@ public class AreaConhecimentoControl implements ActionListener
 			}
 			else
 			{
-				new AreaConhecimentoMysql().atualizar(objt);
+				new AreaConhecimentoDAO().atualizar(objt);
 				JOptionPane.showMessageDialog(null,
 						"Os dados foram inseridos com sucesso", "Sucesso", 1);
 				tabela.edt(objt);

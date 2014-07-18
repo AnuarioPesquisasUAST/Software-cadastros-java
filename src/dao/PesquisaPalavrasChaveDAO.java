@@ -8,14 +8,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import modelo.*;
 
-public class Pesquisainstituicoes_cooperadorasMysql
+public class PesquisaPalavrasChaveDAO
 {
-	ConnectionDao conexao = null;
+	ConnectionFactory conexao = null;
 	private Statement comando;
 
-	public Pesquisainstituicoes_cooperadorasMysql() throws Exception
+	public PesquisaPalavrasChaveDAO() throws Exception
 	{
-		conexao = ConnectionDao.getInstance();
+		conexao = ConnectionFactory.getInstance();
 		try
 		{
 			this.comando = conexao.getConnection().createStatement();
@@ -26,12 +26,12 @@ public class Pesquisainstituicoes_cooperadorasMysql
 		}
 	}
 
-	public void inserir(long id, ArrayList<InstituicaoCooperadora> lista)
+	public void inserir(long id, ArrayList<PalavraChave> lista)
 			throws Exception
 	{
-		for (InstituicaoCooperadora x : lista)
+		for (PalavraChave x : lista)
 		{
-			String sql = "INSERT INTO Pesquisainstituicoes_cooperadoras (id1,id2) VALUES("
+			String sql = "INSERT INTO Pesquisapalavras_chave (id1,id2) VALUES("
 					+ id + "," + x.getId() + ")";
 			try
 			{
@@ -46,8 +46,7 @@ public class Pesquisainstituicoes_cooperadorasMysql
 
 	public void remover(long id) throws Exception
 	{
-		String sql = "DELETE FROM Pesquisainstituicoes_cooperadoras WHERE id1 = "
-				+ id;
+		String sql = "DELETE FROM Pesquisapalavras_chave WHERE id1 = " + id;
 		try
 		{
 			comando.execute(sql.toString());
@@ -58,22 +57,22 @@ public class Pesquisainstituicoes_cooperadorasMysql
 		}
 	}
 
-	public ArrayList<InstituicaoCooperadora> listar(long id) throws Exception
+	public ArrayList<PalavraChave> listar(long id) throws Exception
 	{
-		ArrayList<InstituicaoCooperadora> lista = new ArrayList<InstituicaoCooperadora>();
+		ArrayList<PalavraChave> lista = new ArrayList<PalavraChave>();
 		if (id > 0)
 		{
-			String sql = "SELECT * FROM Pesquisainstituicoes_cooperadoras WHERE id1 = "
+			String sql = "SELECT * FROM Pesquisapalavras_chave WHERE id1 = "
 					+ id;
 			try
 			{
 				ResultSet rs = comando.executeQuery(sql);
 				while (rs.next())
 				{
-					InstituicaoCooperadora x = new InstituicaoCooperadoraMysql()
-							.listar(" WHERE id=" + (rs.getLong("id2"))).get(0);
+					PalavraChave x = new PalavraChaveDAO().listar(
+							" WHERE id=" + (rs.getLong("id2"))).get(0);
 					lista.add(x);
-					// lista.add(new InstituicaoCooperadora(rs.getLong("id2")));
+					// lista.add(new PalavraChave(rs.getLong("id2")));
 				}
 				rs.close();
 			}

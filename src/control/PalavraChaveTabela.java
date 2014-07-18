@@ -20,7 +20,7 @@ public class PalavraChaveTabela extends Control
 	public PalavraChaveTabela() throws Exception
 	{
 		view.setBorder(new TitledBorder(new EtchedBorder(), "Palavra-chave"));
-		list = new PalavraChaveMysql().listar("");
+		list = new PalavraChaveDAO().listar("");
 		preencherTabela();
 	}
 
@@ -57,7 +57,7 @@ public class PalavraChaveTabela extends Control
 	public void adc(PalavraChave o) throws Exception
 	{
 		// list.add(o);
-		list = new PalavraChaveMysql().listar("");
+		list = new PalavraChaveDAO().listar("");
 		preencherTabela();
 	}
 
@@ -66,7 +66,7 @@ public class PalavraChaveTabela extends Control
 		int i = view.getTabela().convertRowIndexToModel(
 				view.getTabela().getSelectedRow());
 		// list.set(i,o);
-		list = new PalavraChaveMysql().listar("");
+		list = new PalavraChaveDAO().listar("");
 		preencherTabela();
 		preencherTabela();
 	}
@@ -86,8 +86,8 @@ public class PalavraChaveTabela extends Control
 	{
 		try
 		{
-			new PalavraChaveMysql().remover(list.get(i));
-			list = new PalavraChaveMysql().listar("");
+			new PalavraChaveDAO().remover(list.get(i));
+			list = new PalavraChaveDAO().listar("");
 			preencherTabela();
 		}
 		catch (Exception e)
@@ -110,7 +110,7 @@ public class PalavraChaveTabela extends Control
 
 	public void pesquisar(String x) throws Exception
 	{
-		list = new PalavraChaveMysql().listar(x);
+		list = new PalavraChaveDAO().listar(x);
 		preencherTabela();
 	}
 }

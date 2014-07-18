@@ -21,7 +21,7 @@ public class InstituicaoSubmissaoTabela extends Control
 	{
 		view.setBorder(new TitledBorder(new EtchedBorder(),
 				"Instituição de Submissão"));
-		list = new InstituicaoSubmissaoMysql().listar("");
+		list = new InstituicaoSubmissaoDAO().listar("");
 		preencherTabela();
 	}
 
@@ -59,7 +59,7 @@ public class InstituicaoSubmissaoTabela extends Control
 	public void adc(InstituicaoSubmissao o) throws Exception
 	{
 		// list.add(o);
-		list = new InstituicaoSubmissaoMysql().listar("");
+		list = new InstituicaoSubmissaoDAO().listar("");
 		preencherTabela();
 	}
 
@@ -68,7 +68,7 @@ public class InstituicaoSubmissaoTabela extends Control
 		int i = view.getTabela().convertRowIndexToModel(
 				view.getTabela().getSelectedRow());
 		// list.set(i,o);
-		list = new InstituicaoSubmissaoMysql().listar("");
+		list = new InstituicaoSubmissaoDAO().listar("");
 		preencherTabela();
 		preencherTabela();
 	}
@@ -88,8 +88,8 @@ public class InstituicaoSubmissaoTabela extends Control
 	{
 		try
 		{
-			new InstituicaoSubmissaoMysql().remover(list.get(i));
-			list = new InstituicaoSubmissaoMysql().listar("");
+			new InstituicaoSubmissaoDAO().remover(list.get(i));
+			list = new InstituicaoSubmissaoDAO().listar("");
 			preencherTabela();
 		}
 		catch (Exception e)
@@ -112,7 +112,7 @@ public class InstituicaoSubmissaoTabela extends Control
 
 	public void pesquisar(String x) throws Exception
 	{
-		list = new InstituicaoSubmissaoMysql().listar(x);
+		list = new InstituicaoSubmissaoDAO().listar(x);
 		preencherTabela();
 	}
 }

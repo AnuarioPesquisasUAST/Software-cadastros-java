@@ -21,7 +21,7 @@ public class InstituicaoCooperadoraTabela extends Control
 	{
 		view.setBorder(new TitledBorder(new EtchedBorder(),
 				"Instituição Cooperadora"));
-		list = new InstituicaoCooperadoraMysql().listar("");
+		list = new InstituicaoCooperadoraDAO().listar("");
 		preencherTabela();
 	}
 
@@ -59,7 +59,7 @@ public class InstituicaoCooperadoraTabela extends Control
 	public void adc(InstituicaoCooperadora o) throws Exception
 	{
 		// list.add(o);
-		list = new InstituicaoCooperadoraMysql().listar("");
+		list = new InstituicaoCooperadoraDAO().listar("");
 		preencherTabela();
 	}
 
@@ -68,7 +68,7 @@ public class InstituicaoCooperadoraTabela extends Control
 		int i = view.getTabela().convertRowIndexToModel(
 				view.getTabela().getSelectedRow());
 		// list.set(i,o);
-		list = new InstituicaoCooperadoraMysql().listar("");
+		list = new InstituicaoCooperadoraDAO().listar("");
 		preencherTabela();
 		preencherTabela();
 	}
@@ -88,8 +88,8 @@ public class InstituicaoCooperadoraTabela extends Control
 	{
 		try
 		{
-			new InstituicaoCooperadoraMysql().remover(list.get(i));
-			list = new InstituicaoCooperadoraMysql().listar("");
+			new InstituicaoCooperadoraDAO().remover(list.get(i));
+			list = new InstituicaoCooperadoraDAO().listar("");
 			preencherTabela();
 		}
 		catch (Exception e)
@@ -112,7 +112,7 @@ public class InstituicaoCooperadoraTabela extends Control
 
 	public void pesquisar(String x) throws Exception
 	{
-		list = new InstituicaoCooperadoraMysql().listar(x);
+		list = new InstituicaoCooperadoraDAO().listar(x);
 		preencherTabela();
 	}
 }

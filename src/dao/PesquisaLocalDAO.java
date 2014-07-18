@@ -10,15 +10,16 @@ import java.util.ArrayList;
 /**
 * Created by natan on 16/07/14.
 */
-public class PesquisaLocaisMysql {
+public class PesquisaLocalDAO
+{
 
 
-    ConnectionDao conexao = null;
+    ConnectionFactory conexao = null;
     private Statement comando;
 
-    public PesquisaLocaisMysql() throws Exception
+    public PesquisaLocalDAO() throws Exception
     {
-        conexao = ConnectionDao.getInstance();
+        conexao = ConnectionFactory.getInstance();
         try
         {
             this.comando = conexao.getConnection().createStatement();
@@ -73,7 +74,7 @@ public class PesquisaLocaisMysql {
                 ResultSet rs = comando.executeQuery(sql);
                 while (rs.next())
                 {
-                    Local x = new LocalMysql()
+                    Local x = new LocalDAO()
                             .listar(" WHERE id=" + (rs.getLong("id2"))).get(0);
                     lista.add(x);
                     // lista.add(new InstituicaoCooperadora(rs.getLong("id2")));

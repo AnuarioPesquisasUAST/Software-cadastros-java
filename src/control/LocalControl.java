@@ -50,7 +50,7 @@ public class LocalControl implements ActionListener
 			Local objt = classeView();
 			if (obj == null)
 			{
-				long x = new LocalMysql().inserir(objt);
+				long x = new LocalDAO().inserir(objt);
 				objt.setId(x);
 				JOptionPane.showMessageDialog(null,
 						"Os dados foram inseridos com sucesso", "Sucesso", 0);
@@ -61,7 +61,7 @@ public class LocalControl implements ActionListener
 			}
 			else
 			{
-				new LocalMysql().atualizar(objt);
+				new LocalDAO().atualizar(objt);
 				JOptionPane.showMessageDialog(null,
 						"Os dados foram inseridos com sucesso", "Sucesso", 1);
 				tabela.edt(objt);

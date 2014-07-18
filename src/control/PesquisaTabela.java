@@ -20,7 +20,7 @@ public class PesquisaTabela extends Control
 	public PesquisaTabela() throws Exception
 	{
 		view.setBorder(new TitledBorder(new EtchedBorder(), "Pesquisas"));
-		list = new PesquisaMysql().listar("");
+		list = new PesquisaDAO().listar("");
 		preencherTabela();
 	}
 
@@ -89,7 +89,7 @@ public class PesquisaTabela extends Control
 	public void adc(Pesquisa o) throws Exception
 	{
 		// list.add(o);
-		list = new PesquisaMysql().listar("");
+		list = new PesquisaDAO().listar("");
 		preencherTabela();
 	}
 
@@ -98,7 +98,7 @@ public class PesquisaTabela extends Control
 		int i = view.getTabela().convertRowIndexToModel(
 				view.getTabela().getSelectedRow());
 		// list.set(i,o);
-		list = new PesquisaMysql().listar("");
+		list = new PesquisaDAO().listar("");
 		preencherTabela();
 		preencherTabela();
 	}
@@ -118,8 +118,8 @@ public class PesquisaTabela extends Control
 	{
 		try
 		{
-			new PesquisaMysql().remover(list.get(i));
-			list = new PesquisaMysql().listar("");
+			new PesquisaDAO().remover(list.get(i));
+			list = new PesquisaDAO().listar("");
 			preencherTabela();
 		}
 		catch (Exception e)
@@ -143,7 +143,7 @@ public class PesquisaTabela extends Control
 
 	public void pesquisar(String x) throws Exception
 	{
-		list = new PesquisaMysql().listar(x);
+		list = new PesquisaDAO().listar(x);
 		preencherTabela();
 	}
 }

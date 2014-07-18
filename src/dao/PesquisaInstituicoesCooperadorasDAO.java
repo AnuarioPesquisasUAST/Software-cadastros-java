@@ -8,14 +8,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import modelo.*;
 
-public class PesquisacolaboradoresMysql
+public class PesquisaInstituicoesCooperadorasDAO
 {
-	ConnectionDao conexao = null;
+	ConnectionFactory conexao = null;
 	private Statement comando;
 
-	public PesquisacolaboradoresMysql() throws Exception
+	public PesquisaInstituicoesCooperadorasDAO() throws Exception
 	{
-		conexao = ConnectionDao.getInstance();
+		conexao = ConnectionFactory.getInstance();
 		try
 		{
 			this.comando = conexao.getConnection().createStatement();
@@ -26,11 +26,12 @@ public class PesquisacolaboradoresMysql
 		}
 	}
 
-	public void inserir(long id, ArrayList<Pesquisador> lista) throws Exception
+	public void inserir(long id, ArrayList<InstituicaoCooperadora> lista)
+			throws Exception
 	{
-		for (Pesquisador x : lista)
+		for (InstituicaoCooperadora x : lista)
 		{
-			String sql = "INSERT INTO Pesquisacolaboradores (id1,id2) VALUES("
+			String sql = "INSERT INTO Pesquisainstituicoes_cooperadoras (id1,id2) VALUES("
 					+ id + "," + x.getId() + ")";
 			try
 			{
@@ -45,7 +46,8 @@ public class PesquisacolaboradoresMysql
 
 	public void remover(long id) throws Exception
 	{
-		String sql = "DELETE FROM Pesquisacolaboradores WHERE id1 = " + id;
+		String sql = "DELETE FROM Pesquisainstituicoes_cooperadoras WHERE id1 = "
+				+ id;
 		try
 		{
 			comando.execute(sql.toString());
@@ -56,22 +58,22 @@ public class PesquisacolaboradoresMysql
 		}
 	}
 
-	public ArrayList<Pesquisador> listar(long id) throws Exception
+	public ArrayList<InstituicaoCooperadora> listar(long id) throws Exception
 	{
-		ArrayList<Pesquisador> lista = new ArrayList<Pesquisador>();
+		ArrayList<InstituicaoCooperadora> lista = new ArrayList<InstituicaoCooperadora>();
 		if (id > 0)
 		{
-			String sql = "SELECT * FROM Pesquisacolaboradores WHERE id1 = "
+			String sql = "SELECT * FROM Pesquisainstituicoes_cooperadoras WHERE id1 = "
 					+ id;
 			try
 			{
 				ResultSet rs = comando.executeQuery(sql);
 				while (rs.next())
 				{
-					Pesquisador x = new PesquisadorMysql().listar(
-							" WHERE id=" + (rs.getLong("id2"))).get(0);
+					InstituicaoCooperadora x = new InstituicaoCooperadoraDAO()
+							.listar(" WHERE id=" + (rs.getLong("id2"))).get(0);
 					lista.add(x);
-					// lista.add(new Pesquisador(rs.getLong("id2")));
+					// lista.add(new InstituicaoCooperadora(rs.getLong("id2")));
 				}
 				rs.close();
 			}

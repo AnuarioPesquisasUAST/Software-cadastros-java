@@ -81,15 +81,15 @@ public class PesquisadorView extends JFrame
 						: pesquisador.getTitulacao());
 		Curso xcurso_vinculado = null;
 		if (pesquisador.getCurso_vinculado() != null)
-			xcurso_vinculado = (new CursoMysql().listar(" WHERE id="
+			xcurso_vinculado = (new CursoDAO().listar(" WHERE id="
 					+ pesquisador.getCurso_vinculado()).get(0));
-		curso_vinculado = new Autocompletee(new CursoMysql().listar(""),
+		curso_vinculado = new Autocompletee(new CursoDAO().listar(""),
 				xcurso_vinculado);
 		AreaFormacao xareaformacao = null;
 		if (pesquisador.getAreaformacao() != null)
-			xareaformacao = (new AreaFormacaoMysql().listar(" WHERE id="
+			xareaformacao = (new AreaFormacaoDAO().listar(" WHERE id="
 					+ pesquisador.getAreaformacao()).get(0));
-		areaformacao = new Autocompletee(new AreaFormacaoMysql().listar(""),
+		areaformacao = new Autocompletee(new AreaFormacaoDAO().listar(""),
 				xareaformacao);
 
 		JPanel pp = new JPanel();

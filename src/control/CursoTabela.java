@@ -20,7 +20,7 @@ public class CursoTabela extends Control
 	public CursoTabela() throws Exception
 	{
 		view.setBorder(new TitledBorder(new EtchedBorder(), "Curso"));
-		list = new CursoMysql().listar("");
+		list = new CursoDAO().listar("");
 		preencherTabela();
 	}
 
@@ -57,7 +57,7 @@ public class CursoTabela extends Control
 	public void adc(Curso o) throws Exception
 	{
 		// list.add(o);
-		list = new CursoMysql().listar("");
+		list = new CursoDAO().listar("");
 		preencherTabela();
 	}
 
@@ -66,7 +66,7 @@ public class CursoTabela extends Control
 		int i = view.getTabela().convertRowIndexToModel(
 				view.getTabela().getSelectedRow());
 		// list.set(i,o);
-		list = new CursoMysql().listar("");
+		list = new CursoDAO().listar("");
 		preencherTabela();
 		preencherTabela();
 	}
@@ -86,8 +86,8 @@ public class CursoTabela extends Control
 	{
 		try
 		{
-			new CursoMysql().remover(list.get(i));
-			list = new CursoMysql().listar("");
+			new CursoDAO().remover(list.get(i));
+			list = new CursoDAO().listar("");
 			preencherTabela();
 		}
 		catch (Exception e)
@@ -110,7 +110,7 @@ public class CursoTabela extends Control
 
 	public void pesquisar(String x) throws Exception
 	{
-		list = new CursoMysql().listar(x);
+		list = new CursoDAO().listar(x);
 		preencherTabela();
 	}
 }

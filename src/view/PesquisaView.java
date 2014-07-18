@@ -86,11 +86,11 @@ public class PesquisaView extends JFrame
 
 			if (pesquisa.getOrientador() != null)
 			{
-				xorientador = (new PesquisadorMysql().listar(" WHERE id="
+				xorientador = (new PesquisadorDAO().listar(" WHERE id="
 						+ pesquisa.getOrientador().getId()).get(0));
 			}
 
-			orientador = new Autocompletee(new PesquisadorMysql().listar(""),
+			orientador = new Autocompletee(new PesquisadorDAO().listar(""),
 					xorientador);
 			orientador.setToolTipText("Pesquisador orientador da pesquisa");
 
@@ -98,16 +98,16 @@ public class PesquisaView extends JFrame
 
 			if (pesquisa.getPesquisador_responsavel() != null)
 			{
-				xpesquisador_responsavel = (new PesquisadorMysql()
+				xpesquisador_responsavel = (new PesquisadorDAO()
 						.listar(" WHERE id="
 								+ pesquisa.getPesquisador_responsavel().getId()).get(0));
 			}
 
 			pesquisador_responsavel = new Autocompletee(
-					new PesquisadorMysql().listar(""), xpesquisador_responsavel);
+					new PesquisadorDAO().listar(""), xpesquisador_responsavel);
 			JButton colab = new JButton("Novo");
 			colaboradores = new ListaAutoComplete(
-					new PesquisadorMysql().listar(""), pesquisa.getColaboradores(),colab);
+					new PesquisadorDAO().listar(""), pesquisa.getColaboradores(),colab);
 			colab.addActionListener(new ActionListener()
 			{
 				public void actionPerformed(ActionEvent arg0)
@@ -144,32 +144,32 @@ public class PesquisaView extends JFrame
 					pesquisa.getResultado() == null ? "" : pesquisa.getResultado());
 			InstituicaoSubmissao xinstituicao_submissao = null;
 			if (pesquisa.getInstituicao_submissao() != null)
-				xinstituicao_submissao = (new InstituicaoSubmissaoMysql()
+				xinstituicao_submissao = (new InstituicaoSubmissaoDAO()
 						.listar(" WHERE id=" + pesquisa.getInstituicao_submissao().getId())
 						.get(0));
 			instituicao_submissao = new Autocompletee(
-					new InstituicaoSubmissaoMysql().listar(""),
+					new InstituicaoSubmissaoDAO().listar(""),
 					xinstituicao_submissao);
 			FonteFinanciamento xfonte_financiamento = null;
 			if (pesquisa.getFonte_financiamento() != null)
-				xfonte_financiamento = (new FonteFinanciamentoMysql()
+				xfonte_financiamento = (new FonteFinanciamentoDAO()
 						.listar(" WHERE id=" + pesquisa.getFonte_financiamento().getId())
 						.get(0));
 
             fonte_financiamento = new Autocompletee(
-					new FonteFinanciamentoMysql().listar(""), xfonte_financiamento);
+					new FonteFinanciamentoDAO().listar(""), xfonte_financiamento);
 			AreaConhecimento xarea_conhecimento_CNPq = null;
 			if (pesquisa.getArea_conhecimento_CNPq() != null)
-				xarea_conhecimento_CNPq = (new AreaConhecimentoMysql()
+				xarea_conhecimento_CNPq = (new AreaConhecimentoDAO()
 						.listar(" WHERE id=" + pesquisa.getArea_conhecimento_CNPq().getId())
 						.get(0));
 
             area_conhecimento_CNPq = new Autocompletee(
-					new AreaConhecimentoMysql().listar(""), xarea_conhecimento_CNPq);
+					new AreaConhecimentoDAO().listar(""), xarea_conhecimento_CNPq);
 			JButton palavrax = new JButton("Novo");
 			
 			palavras_chave = new ListaAutoComplete(
-					new PalavraChaveMysql().listar(""),
+					new PalavraChaveDAO().listar(""),
 					pesquisa.getPalavras_chave(),palavrax);
 			palavrax.addActionListener(new ActionListener()
 			{
@@ -189,7 +189,7 @@ public class PesquisaView extends JFrame
             JButton instituicoes = new JButton("Novo");
 
             instituicoes_cooperadoras = new ListaAutoComplete(
-					new InstituicaoCooperadoraMysql().listar(""),
+					new InstituicaoCooperadoraDAO().listar(""),
 					pesquisa.getInstituicoes_cooperadoras(),instituicoes);
 			instituicoes.addActionListener(new ActionListener()
 			{
@@ -210,7 +210,7 @@ public class PesquisaView extends JFrame
 
             JButton blocais = new JButton("Novo");
 
-            locais = new ListaAutoComplete(new LocalMysql().listar(""), pesquisa.getLocais(), blocais);
+            locais = new ListaAutoComplete(new LocalDAO().listar(""), pesquisa.getLocais(), blocais);
             blocais.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {

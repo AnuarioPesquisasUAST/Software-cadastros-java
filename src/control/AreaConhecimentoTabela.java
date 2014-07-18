@@ -21,7 +21,7 @@ public class AreaConhecimentoTabela extends Control
 	{
 		view.setBorder(new TitledBorder(new EtchedBorder(),
 				"Área de Conhecimento"));
-		list = new AreaConhecimentoMysql().listar("");
+		list = new AreaConhecimentoDAO().listar("");
 		preencherTabela();
 	}
 
@@ -61,7 +61,7 @@ public class AreaConhecimentoTabela extends Control
 	public void adc(AreaConhecimento o) throws Exception
 	{
 		// list.add(o);
-		list = new AreaConhecimentoMysql().listar("");
+		list = new AreaConhecimentoDAO().listar("");
 		preencherTabela();
 	}
 
@@ -70,7 +70,7 @@ public class AreaConhecimentoTabela extends Control
 		int i = view.getTabela().convertRowIndexToModel(
 				view.getTabela().getSelectedRow());
 		// list.set(i,o);
-		list = new AreaConhecimentoMysql().listar("");
+		list = new AreaConhecimentoDAO().listar("");
 		preencherTabela();
 		preencherTabela();
 	}
@@ -90,8 +90,8 @@ public class AreaConhecimentoTabela extends Control
 	{
 		try
 		{
-			new AreaConhecimentoMysql().remover(list.get(i));
-			list = new AreaConhecimentoMysql().listar("");
+			new AreaConhecimentoDAO().remover(list.get(i));
+			list = new AreaConhecimentoDAO().listar("");
 			preencherTabela();
 		}
 		catch (Exception e)
@@ -114,7 +114,7 @@ public class AreaConhecimentoTabela extends Control
 
 	public void pesquisar(String x) throws Exception
 	{
-		list = new AreaConhecimentoMysql().listar(x);
+		list = new AreaConhecimentoDAO().listar(x);
 		preencherTabela();
 	}
 }

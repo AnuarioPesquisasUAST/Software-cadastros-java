@@ -9,14 +9,14 @@ import modelo.Pesquisador;
 
 import modelo.*;
 
-public class PesquisadorMysql
+public class PesquisadorDAO
 {
-	ConnectionDao conexao = null;
+	ConnectionFactory conexao = null;
 	private Statement comando;
 
-	public PesquisadorMysql() throws Exception
+	public PesquisadorDAO() throws Exception
 	{
-		conexao = ConnectionDao.getInstance();
+		conexao = ConnectionFactory.getInstance();
 		try
 		{
 			this.comando = conexao.getConnection().createStatement();

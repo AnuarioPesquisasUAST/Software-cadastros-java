@@ -20,7 +20,7 @@ public class LocalTabela extends Control
 	public LocalTabela() throws Exception
 	{
 		view.setBorder(new TitledBorder(new EtchedBorder(), "Local"));
-		list = new LocalMysql().listar("");
+		list = new LocalDAO().listar("");
 		preencherTabela();
 	}
 
@@ -60,7 +60,7 @@ public class LocalTabela extends Control
 	public void adc(Local o) throws Exception
 	{
 		// list.add(o);
-		list = new LocalMysql().listar("");
+		list = new LocalDAO().listar("");
 		preencherTabela();
 	}
 
@@ -69,7 +69,7 @@ public class LocalTabela extends Control
 		int i = view.getTabela().convertRowIndexToModel(
 				view.getTabela().getSelectedRow());
 		// list.set(i,o);
-		list = new LocalMysql().listar("");
+		list = new LocalDAO().listar("");
 		preencherTabela();
 		preencherTabela();
 	}
@@ -89,8 +89,8 @@ public class LocalTabela extends Control
 	{
 		try
 		{
-			new LocalMysql().remover(list.get(i));
-			list = new LocalMysql().listar("");
+			new LocalDAO().remover(list.get(i));
+			list = new LocalDAO().listar("");
 			preencherTabela();
 		}
 		catch (Exception e)
@@ -113,7 +113,7 @@ public class LocalTabela extends Control
 
 	public void pesquisar(String x) throws Exception
 	{
-		list = new LocalMysql().listar(x);
+		list = new LocalDAO().listar(x);
 		preencherTabela();
 	}
 }

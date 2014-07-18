@@ -21,7 +21,7 @@ public class FonteFinanciamentoTabela extends Control
 	{
 		view.setBorder(new TitledBorder(new EtchedBorder(),
 				"Fonte de Financiamento"));
-		list = new FonteFinanciamentoMysql().listar("");
+		list = new FonteFinanciamentoDAO().listar("");
 		preencherTabela();
 	}
 
@@ -59,7 +59,7 @@ public class FonteFinanciamentoTabela extends Control
 	public void adc(FonteFinanciamento o) throws Exception
 	{
 		// list.add(o);
-		list = new FonteFinanciamentoMysql().listar("");
+		list = new FonteFinanciamentoDAO().listar("");
 		preencherTabela();
 	}
 
@@ -68,7 +68,7 @@ public class FonteFinanciamentoTabela extends Control
 		int i = view.getTabela().convertRowIndexToModel(
 				view.getTabela().getSelectedRow());
 		// list.set(i,o);
-		list = new FonteFinanciamentoMysql().listar("");
+		list = new FonteFinanciamentoDAO().listar("");
 		preencherTabela();
 		preencherTabela();
 	}
@@ -88,8 +88,8 @@ public class FonteFinanciamentoTabela extends Control
 	{
 		try
 		{
-			new FonteFinanciamentoMysql().remover(list.get(i));
-			list = new FonteFinanciamentoMysql().listar("");
+			new FonteFinanciamentoDAO().remover(list.get(i));
+			list = new FonteFinanciamentoDAO().listar("");
 			preencherTabela();
 		}
 		catch (Exception e)
@@ -112,7 +112,7 @@ public class FonteFinanciamentoTabela extends Control
 
 	public void pesquisar(String x) throws Exception
 	{
-		list = new FonteFinanciamentoMysql().listar(x);
+		list = new FonteFinanciamentoDAO().listar(x);
 		preencherTabela();
 	}
 }

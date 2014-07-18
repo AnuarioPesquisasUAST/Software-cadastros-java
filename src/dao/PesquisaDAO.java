@@ -1,5 +1,6 @@
 package dao;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -9,94 +10,66 @@ import modelo.Pesquisa;
 
 import modelo.*;
 
-public class PesquisaMysql
+public class PesquisaDAO
 {
-	ConnectionDao conexao = null;
-	private Statement comando;
 
-	public PesquisaMysql() throws Exception
+	public PesquisaDAO()
 	{
-		conexao = ConnectionDao.getInstance();
-		try
-		{
-			this.comando = conexao.getConnection().createStatement();
-		}
-		catch (SQLException e)
-		{
-			throw e;
-		}
 	}
 
 	public long inserir(Pesquisa pesquisa) throws Exception
 	{
-		String sql = "INSERT INTO pesquisa "
-				+ "(titulo,orientador,pesquisador_responsavel,ano_submissao,tempo_duracao,tipo,qualificacao,impacto_pesquisa,gerou_patente,status,resultado,instituicao_submissao,fonte_financiamento,area_conhecimento_CNPq, resumo) VALUES('"
-				+ pesquisa.getTitulo()
-				+ "','"
-				+ pesquisa.getOrientador().getId()
-				+ "','"
-				+ pesquisa.getPesquisador_responsavel().getId()
-				+ "','"
-				+ pesquisa.getAno_submissao()
-				+ "','"
-				+ pesquisa.getTempo_duracao()
-				+ "','"
-				+ pesquisa.getTipo()
-				+ "','"
-				+ pesquisa.getQualificacao()
-				+ "','"
-				+ pesquisa.getImpacto_pesquisa()
-				+ "','"
-				+ (pesquisa.isGerou_patente() == true ? 1 : 0)
-				+ "','"
-				+ pesquisa.getStatus()
-				+ "','"
-				+ pesquisa.getResultado()
-				+ "','"
-				+ pesquisa.getInstituicao_submissao().getId()
-				+ "','"
-				+ pesquisa.getFonte_financiamento().getId()
-				+ "','"
-				+ pesquisa.getArea_conhecimento_CNPq().getId()
-				+ "','"
-				+ pesquisa.getResumo()
-				+ "')";
-		long x = 0;
+		String sql = "INSERT INTO pesquisa (titulo, orientador, pesquisador_responsavel, ano_submissao, tempo_duracao, tipo, qualificacao, impacto_pesquisa, gerou_patente, status, resultado, instituicao_submissao, fonte_financiamento, area_conhecimento_CNPq, resumo) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		long idGerado = 0;
+
 		try
 		{
-			java.sql.PreparedStatement inserirReturnId = conexao
-					.getConnection().prepareStatement(sql,
-							Statement.RETURN_GENERATED_KEYS);
-			
-			inserirReturnId.executeUpdate();
-			
-			ResultSet rs = inserirReturnId.getGeneratedKeys();
-			
-			if (rs.next()) x = rs.getLong(1);
-			
-			new PesquisacolaboradoresMysql().inserir(x,
-					pesquisa.getColaboradores());
-			new Pesquisapalavras_chaveMysql().inserir(x,
-					pesquisa.getPalavras_chave());
-			new Pesquisainstituicoes_cooperadorasMysql().inserir(x,
-					pesquisa.getInstituicoes_cooperadoras());
-            new PesquisaLocaisMysql().inserir(x, pesquisa.getLocais());
+			PreparedStatement stmt = ConnectionFactory.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			stmt.setString(1, pesquisa.getTitulo());
+			stmt.setLong(2, pesquisa.getOrientador().getId());
+			stmt.setLong(3, pesquisa.getPesquisador_responsavel().getId());
+			stmt.setInt(4, pesquisa.getAno_submissao());
+			stmt.setInt(5, pesquisa.getTempo_duracao());
+			stmt.setString(6, pesquisa.getTipo());
+			stmt.setString(7,pesquisa.getQualificacao());
+			stmt.setString(8, pesquisa.getImpacto_pesquisa());
+			stmt.setBoolean(9, pesquisa.isGerou_patente());
+			stmt.setString(10, pesquisa.getStatus());
+			stmt.setString(11, pesquisa.getResultado());
+			stmt.setLong(12, pesquisa.getInstituicao_submissao().getId());
+			stmt.setLong(13, pesquisa.getFonte_financiamento().getId());
+			stmt.setLong(14, pesquisa.getArea_conhecimento_CNPq().getId());
+			stmt.setNString(15, pesquisa.getResumo().toString());
+			stmt.executeUpdate();
+
+			ResultSet rs = stmt.getGeneratedKeys();
+
+			if (rs.next())
+			{
+				idGerado = rs.getLong(1);
+			}
+
+			new PesquisacolaboradoresDAO().inserir(idGerado, pesquisa.getColaboradores());
+			new PesquisaPalavrasChaveDAO().inserir(idGerado, pesquisa.getPalavras_chave());
+			new PesquisaInstituicoesCooperadorasDAO().inserir(idGerado, pesquisa.getInstituicoes_cooperadoras());
+			new PesquisaLocalDAO().inserir(idGerado, pesquisa.getLocais());
 		}
 		catch (SQLException e)
 		{
 			throw e;
 		}
-		return x;
+		
+		return idGerado;
 	}
 
 	public void remover(Pesquisa pesquisa) throws Exception
 	{
 		String sql = null;
 		long x = pesquisa.getId();
-		new PesquisacolaboradoresMysql().remover(x);
-		new Pesquisapalavras_chaveMysql().remover(x);
-		new Pesquisainstituicoes_cooperadorasMysql().remover(x);
-        new PesquisaLocaisMysql().remover(x);
+		new PesquisacolaboradoresDAO().remover(x);
+		new PesquisaPalavrasChaveDAO().remover(x);
+		new PesquisaInstituicoesCooperadorasDAO().remover(x);
+		new PesquisaLocalDAO().remover(x);
 		sql = "DELETE FROM pesquisa WHERE id = '" + x + "'";
 		try
 		{
@@ -131,17 +104,15 @@ public class PesquisaMysql
 				+ pesquisa.getArea_conhecimento_CNPq().getId() + "',"
 				+ "resumo = '" + pesquisa.getResumo() + "'" + " WHERE id = '"
 				+ x + "'";
-		new PesquisacolaboradoresMysql().remover(x);
-		new PesquisacolaboradoresMysql()
-				.inserir(x, pesquisa.getColaboradores());
-		new Pesquisapalavras_chaveMysql().remover(x);
-		new Pesquisapalavras_chaveMysql().inserir(x,
-				pesquisa.getPalavras_chave());
-		new Pesquisainstituicoes_cooperadorasMysql().remover(x);
-		new Pesquisainstituicoes_cooperadorasMysql().inserir(x,
+		new PesquisacolaboradoresDAO().remover(x);
+		new PesquisacolaboradoresDAO().inserir(x, pesquisa.getColaboradores());
+		new PesquisaPalavrasChaveDAO().remover(x);
+		new PesquisaPalavrasChaveDAO().inserir(x, pesquisa.getPalavras_chave());
+		new PesquisaInstituicoesCooperadorasDAO().remover(x);
+		new PesquisaInstituicoesCooperadorasDAO().inserir(x,
 				pesquisa.getInstituicoes_cooperadoras());
-        new PesquisaLocaisMysql().remover(x);
-        new PesquisaLocaisMysql().inserir(x, pesquisa.getLocais());
+		new PesquisaLocalDAO().remover(x);
+		new PesquisaLocalDAO().inserir(x, pesquisa.getLocais());
 
 		try
 		{
@@ -170,15 +141,15 @@ public class PesquisaMysql
 				// pesquisa.setTitulo((String)rs.getObject("titulo"));
 				// pesquisa.setOrientador(new
 				// Pesquisador(rs.getLong("orientador")));
-				pesquisa.setOrientador(new PesquisadorMysql().listar(
+				pesquisa.setOrientador(new PesquisadorDAO().listar(
 						" WHERE id =" + (rs.getLong("orientador"))).get(0));
 				// pesquisa.setPesquisador_responsavel(new Pesquisador(rs
 				// .getLong("pesquisador_responsavel")));
-				pesquisa.setPesquisador_responsavel(new PesquisadorMysql()
+				pesquisa.setPesquisador_responsavel(new PesquisadorDAO()
 						.listar(" WHERE id ="
 								+ (rs.getLong("pesquisador_responsavel"))).get(
 								0));
-				pesquisa.setColaboradores(new PesquisacolaboradoresMysql()
+				pesquisa.setColaboradores(new PesquisacolaboradoresDAO()
 						.listar(rs.getLong("id")));
 				pesquisa.setAno_submissao(rs.getInt("ano_submissao"));
 				// pesquisa.setAno_submissao((Int)rs.getObject("ano_submissao"));
@@ -198,27 +169,27 @@ public class PesquisaMysql
 				// pesquisa.setResultado((String)rs.getObject("resultado"));
 				// pesquisa.setInstituicao_submissao(new InstituicaoSubmissao(rs
 				// .getLong("instituicao_submissao")));
-				pesquisa.setInstituicao_submissao(new InstituicaoSubmissaoMysql()
+				pesquisa.setInstituicao_submissao(new InstituicaoSubmissaoDAO()
 						.listar(" WHERE id ="
 								+ (rs.getLong("instituicao_submissao"))).get(0));
 				// pesquisa.setFonte_financiamento(new FonteFinanciamento(rs
 				// .getLong("fonte_financiamento")));
-				pesquisa.setFonte_financiamento(new FonteFinanciamentoMysql()
+				pesquisa.setFonte_financiamento(new FonteFinanciamentoDAO()
 						.listar(" WHERE id ="
 								+ (rs.getLong("fonte_financiamento"))).get(0));
 				// pesquisa.setArea_conhecimento_CNPq(new AreaConhecimento(rs
 				// .getLong("area_conhecimento_CNPq")));
-				pesquisa.setArea_conhecimento_CNPq(new AreaConhecimentoMysql()
+				pesquisa.setArea_conhecimento_CNPq(new AreaConhecimentoDAO()
 						.listar(" WHERE id ="
 								+ (rs.getLong("area_conhecimento_CNPq")))
 						.get(0));
-				pesquisa.setPalavras_chave(new Pesquisapalavras_chaveMysql()
+				pesquisa.setPalavras_chave(new PesquisaPalavrasChaveDAO()
 						.listar(rs.getLong("id")));
-				pesquisa.setInstituicoes_cooperadoras(new Pesquisainstituicoes_cooperadorasMysql()
+				pesquisa.setInstituicoes_cooperadoras(new PesquisaInstituicoesCooperadorasDAO()
 						.listar(rs.getLong("id")));
 				// pesquisa.setLocal(new Local(rs.getLong("local")));
-				pesquisa.setLocais(new PesquisaLocaisMysql().listar(
-						rs.getLong("id")));
+				pesquisa.setLocais(new PesquisaLocalDAO().listar(rs
+						.getLong("id")));
 				// pesquisa.setResumo(rs.getString("resumo"));
 				pesquisa.setResumo((String) rs.getObject("resumo"));
 				lista.add(pesquisa);

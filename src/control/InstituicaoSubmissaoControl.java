@@ -54,7 +54,7 @@ public class InstituicaoSubmissaoControl implements ActionListener
 			InstituicaoSubmissao objt = classeView();
 			if (obj == null)
 			{
-				long x = new InstituicaoSubmissaoMysql().inserir(objt);
+				long x = new InstituicaoSubmissaoDAO().inserir(objt);
 				objt.setId(x);
 				JOptionPane.showMessageDialog(null,
 						"Os dados foram inseridos com sucesso", "Sucesso", 0);
@@ -65,7 +65,7 @@ public class InstituicaoSubmissaoControl implements ActionListener
 			}
 			else
 			{
-				new InstituicaoSubmissaoMysql().atualizar(objt);
+				new InstituicaoSubmissaoDAO().atualizar(objt);
 				JOptionPane.showMessageDialog(null,
 						"Os dados foram inseridos com sucesso", "Sucesso", 1);
 				tabela.edt(objt);

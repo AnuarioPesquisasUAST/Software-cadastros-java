@@ -20,7 +20,7 @@ public class PesquisadorTabela extends Control
 	public PesquisadorTabela() throws Exception
 	{
 		view.setBorder(new TitledBorder(new EtchedBorder(), "Pesquisador"));
-		list = new PesquisadorMysql().listar("");
+		list = new PesquisadorDAO().listar("");
 		preencherTabela();
 	}
 
@@ -69,7 +69,7 @@ public class PesquisadorTabela extends Control
 	public void adc(Pesquisador o) throws Exception
 	{
 		// list.add(o);
-		list = new PesquisadorMysql().listar("");
+		list = new PesquisadorDAO().listar("");
 		preencherTabela();
 	}
 
@@ -78,7 +78,7 @@ public class PesquisadorTabela extends Control
 		int i = view.getTabela().convertRowIndexToModel(
 				view.getTabela().getSelectedRow());
 		// list.set(i,o);
-		list = new PesquisadorMysql().listar("");
+		list = new PesquisadorDAO().listar("");
 		preencherTabela();
 		preencherTabela();
 	}
@@ -98,8 +98,8 @@ public class PesquisadorTabela extends Control
 	{
 		try
 		{
-			new PesquisadorMysql().remover(list.get(i));
-			list = new PesquisadorMysql().listar("");
+			new PesquisadorDAO().remover(list.get(i));
+			list = new PesquisadorDAO().listar("");
 			preencherTabela();
 		}
 		catch (Exception e)
@@ -122,7 +122,7 @@ public class PesquisadorTabela extends Control
 
 	public void pesquisar(String x) throws Exception
 	{
-		list = new PesquisadorMysql().listar(x);
+		list = new PesquisadorDAO().listar(x);
 		preencherTabela();
 	}
 }

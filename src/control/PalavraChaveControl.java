@@ -53,7 +53,7 @@ public class PalavraChaveControl implements ActionListener
 			PalavraChave objt = classeView();
 			if (obj == null)
 			{
-				long x = new PalavraChaveMysql().inserir(objt);
+				long x = new PalavraChaveDAO().inserir(objt);
 				objt.setId(x);
 				JOptionPane.showMessageDialog(null,
 						"Os dados foram inseridos com sucesso", "Sucesso", 0);
@@ -64,7 +64,7 @@ public class PalavraChaveControl implements ActionListener
 			}
 			else
 			{
-				new PalavraChaveMysql().atualizar(objt);
+				new PalavraChaveDAO().atualizar(objt);
 				JOptionPane.showMessageDialog(null,
 						"Os dados foram inseridos com sucesso", "Sucesso", 1);
 				tabela.edt(objt);

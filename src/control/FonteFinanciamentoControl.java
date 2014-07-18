@@ -53,7 +53,7 @@ public class FonteFinanciamentoControl implements ActionListener
 			FonteFinanciamento objt = classeView();
 			if (obj == null)
 			{
-				long x = new FonteFinanciamentoMysql().inserir(objt);
+				long x = new FonteFinanciamentoDAO().inserir(objt);
 				objt.setId(x);
 				JOptionPane.showMessageDialog(null,
 						"Os dados foram inseridos com sucesso", "Sucesso", 0);
@@ -64,7 +64,7 @@ public class FonteFinanciamentoControl implements ActionListener
 			}
 			else
 			{
-				new FonteFinanciamentoMysql().atualizar(objt);
+				new FonteFinanciamentoDAO().atualizar(objt);
 				JOptionPane.showMessageDialog(null,
 						"Os dados foram inseridos com sucesso", "Sucesso", 1);
 				tabela.edt(objt);

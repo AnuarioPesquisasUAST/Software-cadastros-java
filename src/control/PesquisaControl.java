@@ -51,7 +51,7 @@ public class PesquisaControl implements ActionListener
 			Pesquisa objt = classeView();
 			if (obj == null)
 			{
-				long x = new PesquisaMysql().inserir(objt);
+				long x = new PesquisaDAO().inserir(objt);
 				objt.setId(x);
 				JOptionPane.showMessageDialog(null,
 						"Os dados foram inseridos com sucesso", "Sucesso", 0);
@@ -62,7 +62,7 @@ public class PesquisaControl implements ActionListener
 			}
 			else
 			{
-				new PesquisaMysql().atualizar(objt);
+				new PesquisaDAO().atualizar(objt);
 				JOptionPane.showMessageDialog(null,
 						"Os dados foram inseridos com sucesso", "Sucesso", 1);
 				tabela.edt(objt);

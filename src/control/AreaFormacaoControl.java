@@ -53,7 +53,7 @@ public class AreaFormacaoControl implements ActionListener
 			AreaFormacao objt = classeView();
 			if (obj == null)
 			{
-				long x = new AreaFormacaoMysql().inserir(objt);
+				long x = new AreaFormacaoDAO().inserir(objt);
 				objt.setId(x);
 				JOptionPane.showMessageDialog(null,
 						"Os dados foram inseridos com sucesso", "Sucesso", 0);
@@ -64,7 +64,7 @@ public class AreaFormacaoControl implements ActionListener
 			}
 			else
 			{
-				new AreaFormacaoMysql().atualizar(objt);
+				new AreaFormacaoDAO().atualizar(objt);
 				JOptionPane.showMessageDialog(null,
 						"Os dados foram inseridos com sucesso", "Sucesso", 1);
 				tabela.edt(objt);

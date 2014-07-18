@@ -50,7 +50,7 @@ public class CursoControl implements ActionListener
 			Curso objt = classeView();
 			if (obj == null)
 			{
-				long x = new CursoMysql().inserir(objt);
+				long x = new CursoDAO().inserir(objt);
 				objt.setId(x);
 				JOptionPane.showMessageDialog(null,
 						"Os dados foram inseridos com sucesso", "Sucesso", 0);
@@ -61,7 +61,7 @@ public class CursoControl implements ActionListener
 			}
 			else
 			{
-				new CursoMysql().atualizar(objt);
+				new CursoDAO().atualizar(objt);
 				JOptionPane.showMessageDialog(null,
 						"Os dados foram inseridos com sucesso", "Sucesso", 1);
 				tabela.edt(objt);
