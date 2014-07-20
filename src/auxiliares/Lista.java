@@ -79,8 +79,8 @@ public class Lista extends JPanel
 				else
 					JOptionPane
 							.showMessageDialog(null,
-									"Nenhum item foi selecionado para remo��o",
-									null, 0);
+									"Nenhum item foi selecionado para remoção",
+									"Alerta", JOptionPane.WARNING_MESSAGE);
 			}
 		});
 

@@ -175,7 +175,7 @@ public abstract class Control implements ActionListener
 				{
 					if (JOptionPane.showConfirmDialog(null,
 							"Deseja mesmo remover o item selecionado?",
-							"Remover Item", 0) == 0)
+							"Remover Item", JOptionPane.QUESTION_MESSAGE) == 0)
 					{
 						String aux = "Não";
 						if (remover(i))
@@ -184,9 +184,9 @@ public abstract class Control implements ActionListener
 									.removeRow(i);
 							aux = "";
 						}
-						JOptionPane.showMessageDialog(null, "O produto " + aux
-								+ " foi removido com sucesso",
-								"Remoção de Produto", 1);
+						JOptionPane.showMessageDialog(null, "A pesquisa " + aux
+								+ " foi removida com sucesso",
+								"Remover pesquisa", JOptionPane.INFORMATION_MESSAGE);
 					}
 				}
 				else if (evt.getSource().equals(view.getEditar()))
@@ -197,7 +197,7 @@ public abstract class Control implements ActionListener
 			else
 				JOptionPane.showMessageDialog(null,
 						"Nenhum item da tabela foi selecionado",
-						"Remoção de Produto", 0);
+						"Alerta", JOptionPane.WARNING_MESSAGE);
 		}
 		catch (Exception e)
 		{
