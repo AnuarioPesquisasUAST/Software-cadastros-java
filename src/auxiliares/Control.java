@@ -83,6 +83,10 @@ public abstract class Control implements ActionListener
 										+ " AND (Pesquisador.nome LIKE '%"
 										+ conteudo + "%'))";
 								break;
+							case " WHERE pesquisador_responsavel ":
+								pesquisa = pesquisa + "= (SELECT id FROM Pesquisador WHERE "
+										+ "(Pesquisador.nome LIKE '%" +conteudo + "%'))";
+								break;
 							case " WHERE colaboradores ":
 								pesquisa = " WHERE id in ("
 										+ "SELECT Pesquisacolaboradores.id1 FROM Pesquisacolaboradores "
@@ -112,6 +116,18 @@ public abstract class Control implements ActionListener
 										+ "WHERE (Pesquisainstituicoes_cooperadoras.id2 = instituicaoCooperadora.id) "
 										+ "AND (instituicaoCooperadora.nome LIKE '%"
 										+ conteudo + "%'))";
+								break;
+							case " WHERE area_conhecimento_CNPq ":
+								pesquisa = pesquisa + " = ("
+										+ "SELECT id FROM  areaConhecimento "
+										+ "WHERE nome LIKE '%" + conteudo
+										+ "%')";
+								break;
+							case " WHERE instituicao_submissao ":
+								pesquisa = pesquisa + " = ("
+										+ "SELECT id FROM  instituicaoSubmissao "
+										+ "WHERE nome LIKE '%" + conteudo
+										+ "%')";
 								break;
 							default:
 								pesquisa = pesquisa + "LIKE '%" + conteudo
