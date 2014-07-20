@@ -11,7 +11,9 @@ public class Pesquisador
 	String titulacao;
 	Curso cursoVinculado;
 	AreaFormacao areaformacao;
+	String curriculoLattes;
 
+	
 	public Pesquisador()
 	{
 	}
@@ -21,13 +23,7 @@ public class Pesquisador
 		id = i;
 	}
 
-	public String toString()
-	{
-		if (nome != null)
-			return nome.toString();
-		return id + "";
-	}
-
+	
 	public long getId()
 	{
 		return id;
@@ -98,12 +94,12 @@ public class Pesquisador
 		this.titulacao = x;
 	}
 
-	public Curso getCurso_vinculado()
+	public Curso getCursoVinculado()
 	{
 		return cursoVinculado;
 	}
 
-	public void setCurso_vinculado(Curso x)
+	public void setCursoVinculado(Curso x)
 	{
 		this.cursoVinculado = x;
 	}
@@ -116,6 +112,23 @@ public class Pesquisador
 	public void setAreaformacao(AreaFormacao x)
 	{
 		this.areaformacao = x;
+	}
+	
+	public String getCurriculoLattes()
+	{
+		return curriculoLattes;
+	}
+
+	public void setCurriculoLattes(String curriculoLattes)
+	{
+		this.curriculoLattes = curriculoLattes;
+	}
+	
+	public String toString()
+	{
+		if (nome != null)
+			return nome.toString();
+		return id + "";
 	}
 
 }

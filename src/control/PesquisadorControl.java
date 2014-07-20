@@ -73,6 +73,7 @@ public class PesquisadorControl implements ActionListener
 		}
 		catch (Exception e)
 		{
+			e.printStackTrace();
 			JOptionPane
 					.showMessageDialog(
 							null,
@@ -91,8 +92,9 @@ public class PesquisadorControl implements ActionListener
 		x.setSexo(view.sexo.getText());
 		x.setClasse(view.classe.getText());
 		x.setTitulacao(view.titulacao.getText());
-		x.setCurso_vinculado((Curso) view.curso_vinculado.getSelected());
+		x.setCursoVinculado((Curso) view.curso_vinculado.getSelected());
 		x.setAreaformacao((AreaFormacao) view.areaformacao.getSelected());
+		x.setCurriculoLattes(view.curriculoLattes.getText());
 		return x;
 	}
 
@@ -104,7 +106,8 @@ public class PesquisadorControl implements ActionListener
 				pesquisador.getNome_cientifico(), pesquisador.getEmail(),
 				pesquisador.getSexo(), pesquisador.getClasse(),
 				pesquisador.getTitulacao(),
-				pesquisador.getCurso_vinculado().getId(),
-				pesquisador.getAreaformacao().getId() };
+				pesquisador.getCursoVinculado().getId(),
+				pesquisador.getAreaformacao().getId(),
+				pesquisador.getCurriculoLattes()};
 	}
 }

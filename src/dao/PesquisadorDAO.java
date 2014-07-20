@@ -18,7 +18,7 @@ public class PesquisadorDAO
 
 	public long inserir(Pesquisador pesquisador) throws Exception
 	{
-		String sql = "INSERT INTO pesquisador(nome,nome_cientifico,email,sexo,classe,titulacao,curso_vinculado,areaformacao) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO pesquisador(nome,nome_cientifico,email,sexo,classe,titulacao,curso_vinculado,areaformacao, curriculo_lattes) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		long idGerado = 0;
 		
 		try
@@ -30,8 +30,9 @@ public class PesquisadorDAO
 			stmt.setString(4, pesquisador.getSexo());
 			stmt.setString(5, pesquisador.getClasse());
 			stmt.setString(6, pesquisador.getTitulacao());
-			stmt.setLong(7, pesquisador.getCurso_vinculado().getId());
+			stmt.setLong(7, pesquisador.getCursoVinculado().getId());
 			stmt.setLong(8, pesquisador.getAreaformacao().getId());
+			stmt.setString(9, pesquisador.getCurriculoLattes());
 			stmt.executeUpdate();
 				
 			ResultSet rs = stmt.getGeneratedKeys();
@@ -67,7 +68,7 @@ public class PesquisadorDAO
 
 	public void atualizar(Pesquisador pesquisador) throws Exception
 	{
-		String sql = "UPDATE pesquisador SET  nome=?, nome_cientifico=?, email=?, sexo=?, classe=?, titulacao=?, curso_vinculado=?, areaformacao=? WHERE id=?";
+		String sql = "UPDATE pesquisador SET  nome=?, nome_cientifico=?, email=?, sexo=?, classe=?, titulacao=?, curso_vinculado=?, areaformacao=?, curriculo_lattes=? WHERE id=?";
 
 		try
 		{
@@ -78,9 +79,10 @@ public class PesquisadorDAO
 			stmt.setString(4, pesquisador.getSexo());
 			stmt.setString(5, pesquisador.getClasse());
 			stmt.setString(6, pesquisador.getTitulacao());
-			stmt.setLong(7, pesquisador.getCurso_vinculado().getId());
+			stmt.setLong(7, pesquisador.getCursoVinculado().getId());
 			stmt.setLong(8, pesquisador.getAreaformacao().getId());
-			stmt.setLong(9, pesquisador.getId());
+			stmt.setString(9, pesquisador.getCurriculoLattes());
+			stmt.setLong(10, pesquisador.getId());
 			stmt.executeUpdate(sql.toString());
 		}
 		catch (SQLException e)
@@ -109,8 +111,9 @@ public class PesquisadorDAO
 				pesquisador.setSexo(rs.getString("sexo"));
 				pesquisador.setClasse(rs.getString("classe"));
 				pesquisador.setTitulacao(rs.getString("titulacao"));
-				pesquisador.setCurso_vinculado(new Curso(rs.getLong("curso_vinculado")));
+				pesquisador.setCursoVinculado(new Curso(rs.getLong("curso_vinculado")));
 				pesquisador.setAreaformacao(new AreaFormacao(rs.getLong("areaformacao")));
+				pesquisador.setCurriculoLattes(rs.getString("curriculo_lattes"));
 				listaPesquisador.add(pesquisador);
 			}
 			

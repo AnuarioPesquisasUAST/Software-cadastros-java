@@ -62,7 +62,7 @@ public class PesquisadorTabela extends Control
 				pesquisador.getNome_cientifico(), pesquisador.getEmail(),
 				pesquisador.getSexo(), pesquisador.getClasse(),
 				pesquisador.getTitulacao(),
-				pesquisador.getCurso_vinculado().getId(),
+				pesquisador.getCursoVinculado().getId(),
 				pesquisador.getAreaformacao().getId() };
 	}
 

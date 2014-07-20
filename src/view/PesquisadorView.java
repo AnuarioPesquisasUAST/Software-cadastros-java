@@ -35,6 +35,7 @@ public class PesquisadorView extends JFrame
 	public ListRadio titulacao;
 	public Autocompletee curso_vinculado;
 	public Autocompletee areaformacao;
+	public JTextField curriculoLattes;
 
 	public PesquisadorView(PesquisadorTabela t) throws Exception
 	{
@@ -75,14 +76,17 @@ public class PesquisadorView extends JFrame
 				pesquisador.getSexo() == null ? "" : pesquisador.getSexo());
 		classe = new ListRadio("Docente, Técnico, Discente".split(","),
 				pesquisador.getClasse() == null ? "" : pesquisador.getClasse());
+		
+		curriculoLattes = new JTextField(pesquisador.getCurriculoLattes() == null? "" : pesquisador.getCurriculoLattes());
+		
 		titulacao = new ListRadio(
 				"Graduando,Graduado, Especialista,Mestre,Doutor".split(","),
 				pesquisador.getTitulacao() == null ? ""
 						: pesquisador.getTitulacao());
 		Curso xcurso_vinculado = null;
-		if (pesquisador.getCurso_vinculado() != null)
+		if (pesquisador.getCursoVinculado() != null)
 			xcurso_vinculado = (new CursoDAO().listar(" WHERE id="
-					+ pesquisador.getCurso_vinculado()).get(0));
+					+ pesquisador.getCursoVinculado()).get(0));
 		curso_vinculado = new Autocompletee(new CursoDAO().listar(""),
 				xcurso_vinculado);
 		AreaFormacao xareaformacao = null;
@@ -98,8 +102,9 @@ public class PesquisadorView extends JFrame
 		layout.row().grid(new JLabel("Nome:")).add(nome);
 		layout.row().grid(new JLabel("Nome científico:")).add(nome_cientifico)
 				.grid(new JLabel("E-mail:")).add(email);
-		layout.row().grid(new JLabel("Sexo:")).add(sexo)
-				.grid(new JLabel("Classe:")).add(classe);
+		layout.row().grid(new JLabel("Sexo:")).add(sexo);
+		layout.row().grid(new JLabel("Classe:")).add(classe);
+		layout.row().grid(new JLabel("Currículo Lattes:")).add(curriculoLattes);
 		layout.row().grid(new JLabel("Titulação:")).add(titulacao);
 		// layout.row().grid(new JLabel("Classe :")).add(classe);;
 		JButton dcurso_vinculado = new JButton("Novo");
