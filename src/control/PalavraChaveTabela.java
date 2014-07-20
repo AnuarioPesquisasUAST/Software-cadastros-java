@@ -1,17 +1,18 @@
 package control;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
-import modelo.*;
-import auxiliares.*;
-import dao.*;
-import view.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+
+import modelo.PalavraChave;
+import view.PalavraChaveView;
+import auxiliares.Control;
+import dao.PalavraChaveDAO;
 
 public class PalavraChaveTabela extends Control
 {

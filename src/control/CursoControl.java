@@ -2,20 +2,13 @@ package control;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
+
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import java.text.SimpleDateFormat;
-import javax.swing.table.DefaultTableModel;
-import auxiliares.Autocompletee;
-import dao.*;
-import view.*;
-import modelo.*;
+
 import modelo.Curso;
+import view.CursoView;
+import auxiliares.Autocompletee;
+import dao.CursoDAO;
 
 public class CursoControl implements ActionListener
 {
@@ -53,7 +46,7 @@ public class CursoControl implements ActionListener
 				long x = new CursoDAO().inserir(objt);
 				objt.setId(x);
 				JOptionPane.showMessageDialog(null,
-						"Os dados foram inseridos com sucesso", "Sucesso", 0);
+						"Os dados foram inseridos com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 				if (tabela != null)
 					tabela.adc(objt);
 				else
@@ -63,7 +56,7 @@ public class CursoControl implements ActionListener
 			{
 				new CursoDAO().atualizar(objt);
 				JOptionPane.showMessageDialog(null,
-						"Os dados foram inseridos com sucesso", "Sucesso", 1);
+						"Os dados foram atualizados com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 				tabela.edt(objt);
 			}
 			view.dispose();
@@ -74,7 +67,7 @@ public class CursoControl implements ActionListener
 					.showMessageDialog(
 							null,
 							"Verifique se os campos estão preenchidos corretamente ou se estão repetidos",
-							"Erro", 0);
+							"Alerta", JOptionPane.WARNING_MESSAGE);
 		}
 	}
 

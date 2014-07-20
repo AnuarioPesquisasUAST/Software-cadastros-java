@@ -49,7 +49,7 @@ public class AreaConhecimentoControl implements ActionListener
 				long x = new AreaConhecimentoDAO().inserir(objt);
 				objt.setId(x);
 				JOptionPane.showMessageDialog(null,
-						"Os dados foram inseridos com sucesso", "Sucesso", 0);
+						"Os dados foram inseridos com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 				if (tabela != null)
 					tabela.adc(objt);
 				else
@@ -59,7 +59,7 @@ public class AreaConhecimentoControl implements ActionListener
 			{
 				new AreaConhecimentoDAO().atualizar(objt);
 				JOptionPane.showMessageDialog(null,
-						"Os dados foram inseridos com sucesso", "Sucesso", 1);
+						"Os dados foram atualizados com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 				tabela.edt(objt);
 			}
 			view.dispose();
@@ -70,7 +70,7 @@ public class AreaConhecimentoControl implements ActionListener
 					.showMessageDialog(
 							null,
 							"Verifique se os campos estão preenchidos corretamente ou se estão repetidos",
-							"Erro", 0);
+							"Alerta", JOptionPane.WARNING_MESSAGE);
 			e.printStackTrace();
 		}
 	}
