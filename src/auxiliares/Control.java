@@ -83,9 +83,9 @@ public abstract class Control implements ActionListener
 										+ " AND (Pesquisador.nome LIKE '%"
 										+ conteudo + "%'))";
 								break;
-							case " WHERE pesquisador_responsavel ":
-								pesquisa = pesquisa + "= (SELECT id FROM Pesquisador WHERE "
-										+ "(Pesquisador.nome LIKE '%" +conteudo + "%'))";
+							case " WHERE pesquisadorResponsavel ":
+								pesquisa = "WHERE pesquisador_responsavel = (SELECT id FROM Pesquisador WHERE "
+										+ "(Pesquisador.nome LIKE '%" + conteudo + "%'))";
 								break;
 							case " WHERE colaboradores ":
 								pesquisa = " WHERE id in ("
@@ -95,7 +95,7 @@ public abstract class Control implements ActionListener
 										+ "AND (Pesquisador.nome LIKE '%"
 										+ conteudo + "%'))";
 								break;
-							case " WHERE palavras_chave ":
+							case " WHERE palavrasChave ":
 								pesquisa = " WHERE id in ("
 										+ "SELECT Pesquisapalavras_chave.id1 FROM  Pesquisapalavras_chave "
 										+ "INNER JOIN palavrachave "
@@ -103,13 +103,13 @@ public abstract class Control implements ActionListener
 										+ "AND (palavrachave.palavra LIKE '%"
 										+ conteudo + "%'))";
 								break;
-							case " WHERE fonte_financiamento ":
-								pesquisa = pesquisa + " = ("
+							case " WHERE fonteFinanciamento ":
+								pesquisa = "WHERE fonte_financiamento = ("
 										+ "SELECT id FROM  fonteFinanciamento "
 										+ "WHERE nome LIKE '%" + conteudo
 										+ "%')";
 								break;
-							case " WHERE instituicoes_cooperadoras ":
+							case " WHERE instituicoesCooperadoras ":
 								pesquisa = " WHERE id in ("
 										+ "SELECT Pesquisainstituicoes_cooperadoras.id1 FROM  Pesquisainstituicoes_cooperadoras "
 										+ "INNER JOIN instituicaoCooperadora "
@@ -117,21 +117,31 @@ public abstract class Control implements ActionListener
 										+ "AND (instituicaoCooperadora.nome LIKE '%"
 										+ conteudo + "%'))";
 								break;
-							case " WHERE area_conhecimento_CNPq ":
-								pesquisa = pesquisa + " = ("
+							case " WHERE areaConhecimentoCNPq ":
+								pesquisa = "WHERE area_conhecimento_CNPq = ("
 										+ "SELECT id FROM  areaConhecimento "
 										+ "WHERE nome LIKE '%" + conteudo
 										+ "%')";
 								break;
-							case " WHERE instituicao_submissao ":
-								pesquisa = pesquisa + " = ("
+							case " WHERE instituicaoSubmissao ":
+								pesquisa = "WHERE instituicao_submissao = ("
 										+ "SELECT id FROM  instituicaoSubmissao "
 										+ "WHERE nome LIKE '%" + conteudo
 										+ "%')";
 								break;
+								
+							case " WHERE anoSubmissao ":
+								pesquisa = "WHERE ano_submissao = " + conteudo;
+								break;
+								
+							case " WHERE tempoDuracao ":
+								pesquisa = "WHERE tempo_duracao = " + conteudo;
+								break;
+								
 							default:
 								pesquisa = pesquisa + "LIKE '%" + conteudo
 										+ "%'";
+								break;
 						}
 					}
 
