@@ -1,17 +1,18 @@
 package control;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
-import modelo.*;
-import auxiliares.*;
-import dao.*;
-import view.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+
+import modelo.Pesquisa;
+import view.PesquisaView;
+import auxiliares.Control;
+import dao.PesquisaDAO;
 
 public class PesquisaTabela extends Control
 {
@@ -30,21 +31,21 @@ public class PesquisaTabela extends Control
 		colunas.add("id");
 		colunas.add("titulo");
 		colunas.add("orientador");
-		colunas.add("pesquisador_responsavel");
+		colunas.add("pesquisadorResponsavel");
 		colunas.add("colaboradores");
-		colunas.add("ano_submissao");
-		colunas.add("tempo_duracao");
+		colunas.add("anoSubmissao");
+		colunas.add("tempoDuracao");
 		colunas.add("tipo");
 		colunas.add("qualificacao");
-		colunas.add("impacto_pesquisa");
-		colunas.add("gerou_patente");
+		colunas.add("impactoPesquisa");
+		colunas.add("gerouPatente");
 		colunas.add("status");
 		colunas.add("resultado");
-		colunas.add("instituicao_submissao");
-		colunas.add("fonte_financiamento");
-		colunas.add("area_conhecimento_CNPq");
-		colunas.add("palavras_chave");
-		colunas.add("instituicoes_cooperadoras");
+		colunas.add("instituicaoSubmissao");
+		colunas.add("fonteFinanciamento");
+		colunas.add("areaConhecimentoCNPq");
+		colunas.add("palavrasChave");
+		colunas.add("instituicoesCooperadoras");
 		colunas.add("locais");
 		colunas.add("resumo");
 		Object linhas[][] = new Object[list.size()][];
@@ -71,17 +72,17 @@ public class PesquisaTabela extends Control
 	{
 		return new Object[] { pesquisa.getId(), pesquisa.getTitulo(),
 				pesquisa.getOrientador(),
-				pesquisa.getPesquisador_responsavel(),
-				pesquisa.getColaboradores(), pesquisa.getAno_submissao(),
-				pesquisa.getTempo_duracao(), pesquisa.getTipo(),
-				pesquisa.getQualificacao(), pesquisa.getImpacto_pesquisa(),
-				(pesquisa.isGerou_patente() == true ? "SIM" : "NÃO"),
+				pesquisa.getPesquisadorResponsavel(),
+				pesquisa.getColaboradores(), pesquisa.getAnoSubmissao(),
+				pesquisa.getTempoDuracao(), pesquisa.getTipo(),
+				pesquisa.getQualificacao(), pesquisa.getImpactoPesquisa(),
+				(pesquisa.isGerouPatente() == true ? "SIM" : "NÃO"),
 				pesquisa.getStatus(), pesquisa.getResultado(),
-				pesquisa.getInstituicao_submissao(),
-				pesquisa.getFonte_financiamento(),
-				pesquisa.getArea_conhecimento_CNPq(),
-				pesquisa.getPalavras_chave(),
-				pesquisa.getInstituicoes_cooperadoras(),
+				pesquisa.getInstituicaoSubmissao(),
+				pesquisa.getFonteFinanciamento(),
+				pesquisa.getAreaConhecimentoCNPq(),
+				pesquisa.getPalavrasChave(),
+				pesquisa.getInstituicoesCooperadoras(),
                 pesquisa.getLocais(),
 				pesquisa.getResumo() };
 	}

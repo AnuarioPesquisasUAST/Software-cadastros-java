@@ -86,25 +86,25 @@ public class PesquisaControl implements ActionListener
 		x.setId(view.id.getValor());
 		x.setTitulo(view.titulo.getText());
 		x.setOrientador((Pesquisador) view.orientador.getSelected());
-		x.setPesquisador_responsavel((Pesquisador) view.pesquisador_responsavel
+		x.setPesquisadorResponsavel((Pesquisador) view.pesquisador_responsavel
 				.getSelected());
 		x.setColaboradores(view.colaboradores.getList());
-		x.setAno_submissao(view.ano_submissao.getValor());
-		x.setTempo_duracao(view.tempo_duracao.getValor());
+		x.setAnoSubmissao(view.ano_submissao.getValor());
+		x.setTempoDuracao(view.tempo_duracao.getValor());
 		x.setTipo(view.tipo.getText());
 		x.setQualificacao(view.qualificacao.getText());
-		x.setImpacto_pesquisa(view.impacto_pesquisa.getText());
-		x.setGerou_patente(view.gerou_patente.isSelected());
+		x.setImpactoPesquisa(view.impacto_pesquisa.getText());
+		x.setGerouPatente(view.gerou_patente.isSelected());
 		x.setStatus(view.status.getText());
 		x.setResultado(view.resultado.getText());
-		x.setInstituicao_submissao((InstituicaoSubmissao) view.instituicao_submissao
+		x.setInstituicaoSubmissao((InstituicaoSubmissao) view.instituicao_submissao
 				.getSelected());
-		x.setFonte_financiamento((FonteFinanciamento) view.fonte_financiamento
+		x.setFonteFinanciamento((FonteFinanciamento) view.fonte_financiamento
 				.getSelected());
-		x.setArea_conhecimento_CNPq((AreaConhecimento) view.area_conhecimento_CNPq
+		x.setAreaConhecimentoCNPq((AreaConhecimento) view.area_conhecimento_CNPq
 				.getSelected());
-		x.setPalavras_chave(view.palavras_chave.getList());
-		x.setInstituicoes_cooperadoras(view.instituicoes_cooperadoras.getList());
+		x.setPalavrasChave(view.palavras_chave.getList());
+		x.setInstituicoesCooperadoras(view.instituicoes_cooperadoras.getList());
 		x.setLocais(view.locais.getList());
 		x.setResumo(view.resumo.getText());
 		return x;
@@ -116,17 +116,17 @@ public class PesquisaControl implements ActionListener
 
 		pesquisa.getId(), pesquisa.getTitulo(),
 				pesquisa.getOrientador().getId(),
-				pesquisa.getPesquisador_responsavel().getId(),
-				pesquisa.getColaboradores(), pesquisa.getAno_submissao(),
-				pesquisa.getTempo_duracao(), pesquisa.getTipo(),
-				pesquisa.getQualificacao(), pesquisa.getImpacto_pesquisa(),
-				(pesquisa.isGerou_patente() == true ? "SIM" : "NÃO"),
+				pesquisa.getPesquisadorResponsavel().getId(),
+				pesquisa.getColaboradores(), pesquisa.getAnoSubmissao(),
+				pesquisa.getTempoDuracao(), pesquisa.getTipo(),
+				pesquisa.getQualificacao(), pesquisa.getImpactoPesquisa(),
+				(pesquisa.isGerouPatente() == true ? "SIM" : "NÃO"),
 				pesquisa.getStatus(), pesquisa.getResultado(),
-				pesquisa.getInstituicao_submissao().getId(),
-				pesquisa.getFonte_financiamento().getId(),
-				pesquisa.getArea_conhecimento_CNPq().getId(),
-				pesquisa.getPalavras_chave(),
-				pesquisa.getInstituicoes_cooperadoras(),
+				pesquisa.getInstituicaoSubmissao().getId(),
+				pesquisa.getFonteFinanciamento().getId(),
+				pesquisa.getAreaConhecimentoCNPq().getId(),
+				pesquisa.getPalavrasChave(),
+				pesquisa.getInstituicoesCooperadoras(),
 				pesquisa.getLocais(),
                 pesquisa.getResumo() };
 	}

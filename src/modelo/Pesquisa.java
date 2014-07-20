@@ -7,31 +7,29 @@ public class Pesquisa
 	long id;
 	String titulo;
 	Pesquisador orientador;
-	Pesquisador pesquisador_responsavel;
+	Pesquisador pesquisadorResponsavel;
 	ArrayList<Pesquisador> colaboradores;
-	int ano_submissao;
-	int tempo_duracao;
+	int anoSubmissao;
+	int tempoDuracao;
 	String tipo;
 	String qualificacao;
-	String impacto_pesquisa;
-	boolean gerou_patente;
+	String impactoPesquisa;
+	boolean gerouPatente;
 	String status;
 	String resultado;
-	InstituicaoSubmissao instituicao_submissao;
-	FonteFinanciamento fonte_financiamento;
-	AreaConhecimento area_conhecimento_CNPq;
-	ArrayList<PalavraChave> palavras_chave;
-	ArrayList<InstituicaoCooperadora> instituicoes_cooperadoras;
+	InstituicaoSubmissao instituicaoSubmissao;
+	FonteFinanciamento fonteFinanciamento;
+	AreaConhecimento areaConhecimentoCNPq;
+	ArrayList<PalavraChave> palavrasChave;
+	ArrayList<InstituicaoCooperadora> instituicoesCooperadoras;
 	ArrayList<Local> locais;
 	StringBuffer resumo;
 
-	public Pesquisa()
-	{
-	}
+	public Pesquisa() {}
 
-	public Pesquisa(long i)
+	public Pesquisa(long idPesquisa)
 	{
-		id = i;
+		id = idPesquisa;
 	}
 
 	public String toString()
@@ -46,9 +44,9 @@ public class Pesquisa
 		return id;
 	}
 
-	public void setId(long x)
+	public void setId(long idPesquisa)
 	{
-		this.id = x;
+		this.id = idPesquisa;
 	}
 
 	public String getTitulo()
@@ -56,9 +54,9 @@ public class Pesquisa
 		return titulo;
 	}
 
-	public void setTitulo(String x)
+	public void setTitulo(String titulo)
 	{
-		this.titulo = x;
+		this.titulo = titulo;
 	}
 
 	public Pesquisador getOrientador()
@@ -66,19 +64,19 @@ public class Pesquisa
 		return orientador;
 	}
 
-	public void setOrientador(Pesquisador x)
+	public void setOrientador(Pesquisador pesquisadorOrientador)
 	{
-		this.orientador = x;
+		this.orientador = pesquisadorOrientador;
 	}
 
-	public Pesquisador getPesquisador_responsavel()
+	public Pesquisador getPesquisadorResponsavel()
 	{
-		return pesquisador_responsavel;
+		return pesquisadorResponsavel;
 	}
 
-	public void setPesquisador_responsavel(Pesquisador x)
+	public void setPesquisadorResponsavel(Pesquisador pesquisadorResponsavel)
 	{
-		this.pesquisador_responsavel = x;
+		this.pesquisadorResponsavel = pesquisadorResponsavel;
 	}
 
 	public ArrayList<Pesquisador> getColaboradores()
@@ -86,29 +84,29 @@ public class Pesquisa
 		return colaboradores;
 	}
 
-	public void setColaboradores(ArrayList<Pesquisador> x)
+	public void setColaboradores(ArrayList<Pesquisador> colaboradores)
 	{
-		this.colaboradores = x;
+		this.colaboradores = colaboradores;
 	}
 
-	public int getAno_submissao()
+	public int getAnoSubmissao()
 	{
-		return ano_submissao;
+		return anoSubmissao;
 	}
 
-	public void setAno_submissao(int x)
+	public void setAnoSubmissao(int anoSubmissao)
 	{
-		this.ano_submissao = x;
+		this.anoSubmissao = anoSubmissao;
 	}
 
-	public int getTempo_duracao()
+	public int getTempoDuracao()
 	{
-		return tempo_duracao;
+		return tempoDuracao;
 	}
 
-	public void setTempo_duracao(int x)
+	public void setTempoDuracao(int tempoDuracao)
 	{
-		this.tempo_duracao = x;
+		this.tempoDuracao = tempoDuracao;
 	}
 
 	public String getTipo()
@@ -116,9 +114,9 @@ public class Pesquisa
 		return tipo;
 	}
 
-	public void setTipo(String x)
+	public void setTipo(String tipo)
 	{
-		this.tipo = x;
+		this.tipo = tipo;
 	}
 
 	public String getQualificacao()
@@ -126,29 +124,29 @@ public class Pesquisa
 		return qualificacao;
 	}
 
-	public void setQualificacao(String x)
+	public void setQualificacao(String qualificacao)
 	{
-		this.qualificacao = x;
+		this.qualificacao = qualificacao;
 	}
 
-	public String getImpacto_pesquisa()
+	public String getImpactoPesquisa()
 	{
-		return impacto_pesquisa;
+		return impactoPesquisa;
 	}
 
-	public void setImpacto_pesquisa(String x)
+	public void setImpactoPesquisa(String impactoPesquisa)
 	{
-		this.impacto_pesquisa = x;
+		this.impactoPesquisa = impactoPesquisa;
 	}
 
-	public boolean isGerou_patente()
+	public boolean isGerouPatente()
 	{
-		return gerou_patente;
+		return gerouPatente;
 	}
 
-	public void setGerou_patente(boolean x)
+	public void setGerouPatente(boolean gerouPatente)
 	{
-		this.gerou_patente = x;
+		this.gerouPatente = gerouPatente;
 	}
 
 	public String getStatus()
@@ -156,9 +154,9 @@ public class Pesquisa
 		return status;
 	}
 
-	public void setStatus(String x)
+	public void setStatus(String status)
 	{
-		this.status = x;
+		this.status = status;
 	}
 
 	public String getResultado()
@@ -166,59 +164,59 @@ public class Pesquisa
 		return resultado;
 	}
 
-	public void setResultado(String x)
+	public void setResultado(String resultado)
 	{
-		this.resultado = x;
+		this.resultado = resultado;
 	}
 
-	public InstituicaoSubmissao getInstituicao_submissao()
+	public InstituicaoSubmissao getInstituicaoSubmissao()
 	{
-		return instituicao_submissao;
+		return instituicaoSubmissao;
 	}
 
-	public void setInstituicao_submissao(InstituicaoSubmissao x)
+	public void setInstituicaoSubmissao(InstituicaoSubmissao instSubmissao)
 	{
-		this.instituicao_submissao = x;
+		this.instituicaoSubmissao = instSubmissao;
 	}
 
-	public FonteFinanciamento getFonte_financiamento()
+	public FonteFinanciamento getFonteFinanciamento()
 	{
-		return fonte_financiamento;
+		return fonteFinanciamento;
 	}
 
-	public void setFonte_financiamento(FonteFinanciamento x)
+	public void setFonteFinanciamento(FonteFinanciamento fonteFinan)
 	{
-		this.fonte_financiamento = x;
+		this.fonteFinanciamento = fonteFinan;
 	}
 
-	public AreaConhecimento getArea_conhecimento_CNPq()
+	public AreaConhecimento getAreaConhecimentoCNPq()
 	{
-		return area_conhecimento_CNPq;
+		return areaConhecimentoCNPq;
 	}
 
-	public void setArea_conhecimento_CNPq(AreaConhecimento x)
+	public void setAreaConhecimentoCNPq(AreaConhecimento areaConhecimento)
 	{
-		this.area_conhecimento_CNPq = x;
+		this.areaConhecimentoCNPq = areaConhecimento;
 	}
 
-	public ArrayList<PalavraChave> getPalavras_chave()
+	public ArrayList<PalavraChave> getPalavrasChave()
 	{
-		return palavras_chave;
+		return palavrasChave;
 	}
 
-	public void setPalavras_chave(ArrayList<PalavraChave> x)
+	public void setPalavrasChave(ArrayList<PalavraChave> palavrasChave)
 	{
-		this.palavras_chave = x;
+		this.palavrasChave = palavrasChave;
 	}
 
-	public ArrayList<InstituicaoCooperadora> getInstituicoes_cooperadoras()
+	public ArrayList<InstituicaoCooperadora> getInstituicoesCooperadoras()
 	{
-		return instituicoes_cooperadoras;
+		return instituicoesCooperadoras;
 	}
 
-	public void setInstituicoes_cooperadoras(ArrayList<InstituicaoCooperadora> x)
+	public void setInstituicoesCooperadoras(ArrayList<InstituicaoCooperadora> instCoop)
 	{
-		this.instituicoes_cooperadoras = x;
+		this.instituicoesCooperadoras = instCoop;
 	}
 
 	public ArrayList<Local> getLocais()
@@ -226,9 +224,9 @@ public class Pesquisa
 		return this.locais;
 	}
 
-	public void setLocais(ArrayList<Local> x)
+	public void setLocais(ArrayList<Local> locais)
 	{
-		this.locais = x;
+		this.locais = locais;
 	}
 
 	public StringBuffer getResumo()
@@ -236,9 +234,9 @@ public class Pesquisa
 		return resumo;
 	}
 
-	public void setResumo(StringBuffer x)
+	public void setResumo(StringBuffer resumo)
 	{
-		this.resumo = x;
+		this.resumo = resumo;
 	}
 
 	public void setResumo(String x)

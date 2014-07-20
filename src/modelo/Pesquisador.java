@@ -4,12 +4,12 @@ public class Pesquisador
 {
 	long id;
 	String nome;
-	String nome_cientifico;
+	String nomeCientifico;
 	String email;
 	String sexo;
 	String classe;
 	String titulacao;
-	Curso curso_vinculado;
+	Curso cursoVinculado;
 	AreaFormacao areaformacao;
 
 	public Pesquisador()
@@ -50,12 +50,12 @@ public class Pesquisador
 
 	public String getNome_cientifico()
 	{
-		return nome_cientifico;
+		return nomeCientifico;
 	}
 
 	public void setNome_cientifico(String x)
 	{
-		this.nome_cientifico = x;
+		this.nomeCientifico = x;
 	}
 
 	public String getEmail()
@@ -100,12 +100,12 @@ public class Pesquisador
 
 	public Curso getCurso_vinculado()
 	{
-		return curso_vinculado;
+		return cursoVinculado;
 	}
 
 	public void setCurso_vinculado(Curso x)
 	{
-		this.curso_vinculado = x;
+		this.cursoVinculado = x;
 	}
 
 	public AreaFormacao getAreaformacao()

@@ -96,11 +96,11 @@ public class PesquisaView extends JFrame
 
 			Pesquisador xpesquisador_responsavel = null;
 
-			if (pesquisa.getPesquisador_responsavel() != null)
+			if (pesquisa.getPesquisadorResponsavel() != null)
 			{
 				xpesquisador_responsavel = (new PesquisadorDAO()
 						.listar(" WHERE id="
-								+ pesquisa.getPesquisador_responsavel().getId()).get(0));
+								+ pesquisa.getPesquisadorResponsavel().getId()).get(0));
 			}
 
 			pesquisador_responsavel = new Autocompletee(
@@ -123,8 +123,8 @@ public class PesquisaView extends JFrame
 					
 				}
 			});
-			ano_submissao = new JTextInt(pesquisa.getAno_submissao());
-			tempo_duracao = new JTextInt(pesquisa.getTempo_duracao());
+			ano_submissao = new JTextInt(pesquisa.getAnoSubmissao());
+			tempo_duracao = new JTextInt(pesquisa.getTempoDuracao());
 			tipo = new ListRadio("Pura-Básica,Aplicada".split(","),
 					pesquisa.getTipo() == null ? "" : pesquisa.getTipo());
 			qualificacao = new ListRadio(
@@ -132,10 +132,10 @@ public class PesquisaView extends JFrame
 					pesquisa.getQualificacao() == null ? "" : pesquisa
 							.getQualificacao());
 			impacto_pesquisa = new ListRadio("Difusão,Adoção".split(","),
-					pesquisa.getImpacto_pesquisa() == null ? ""
-							: pesquisa.getImpacto_pesquisa());
+					pesquisa.getImpactoPesquisa() == null ? ""
+							: pesquisa.getImpactoPesquisa());
 			gerou_patente = new JCheckBox("Gerou Patente?",
-					pesquisa.isGerou_patente());
+					pesquisa.isGerouPatente());
 			status = new ListRadio(
 					"Concluída,Não concluída,Em andamento".split(","),
 					pesquisa.getStatus() == null ? "" : pesquisa.getStatus());
@@ -143,25 +143,25 @@ public class PesquisaView extends JFrame
 					"Artigo Publicado, Resumo-Expandido,Livro".split(","),
 					pesquisa.getResultado() == null ? "" : pesquisa.getResultado());
 			InstituicaoSubmissao xinstituicao_submissao = null;
-			if (pesquisa.getInstituicao_submissao() != null)
+			if (pesquisa.getInstituicaoSubmissao() != null)
 				xinstituicao_submissao = (new InstituicaoSubmissaoDAO()
-						.listar(" WHERE id=" + pesquisa.getInstituicao_submissao().getId())
+						.listar(" WHERE id=" + pesquisa.getInstituicaoSubmissao().getId())
 						.get(0));
 			instituicao_submissao = new Autocompletee(
 					new InstituicaoSubmissaoDAO().listar(""),
 					xinstituicao_submissao);
 			FonteFinanciamento xfonte_financiamento = null;
-			if (pesquisa.getFonte_financiamento() != null)
+			if (pesquisa.getFonteFinanciamento() != null)
 				xfonte_financiamento = (new FonteFinanciamentoDAO()
-						.listar(" WHERE id=" + pesquisa.getFonte_financiamento().getId())
+						.listar(" WHERE id=" + pesquisa.getFonteFinanciamento().getId())
 						.get(0));
 
             fonte_financiamento = new Autocompletee(
 					new FonteFinanciamentoDAO().listar(""), xfonte_financiamento);
 			AreaConhecimento xarea_conhecimento_CNPq = null;
-			if (pesquisa.getArea_conhecimento_CNPq() != null)
+			if (pesquisa.getAreaConhecimentoCNPq() != null)
 				xarea_conhecimento_CNPq = (new AreaConhecimentoDAO()
-						.listar(" WHERE id=" + pesquisa.getArea_conhecimento_CNPq().getId())
+						.listar(" WHERE id=" + pesquisa.getAreaConhecimentoCNPq().getId())
 						.get(0));
 
             area_conhecimento_CNPq = new Autocompletee(
@@ -170,7 +170,7 @@ public class PesquisaView extends JFrame
 			
 			palavras_chave = new ListaAutoComplete(
 					new PalavraChaveDAO().listar(""),
-					pesquisa.getPalavras_chave(),palavrax);
+					pesquisa.getPalavrasChave(),palavrax);
 			palavrax.addActionListener(new ActionListener()
 			{
 				public void actionPerformed(ActionEvent arg0)
@@ -190,7 +190,7 @@ public class PesquisaView extends JFrame
 
             instituicoes_cooperadoras = new ListaAutoComplete(
 					new InstituicaoCooperadoraDAO().listar(""),
-					pesquisa.getInstituicoes_cooperadoras(),instituicoes);
+					pesquisa.getInstituicoesCooperadoras(),instituicoes);
 			instituicoes.addActionListener(new ActionListener()
 			{
 				public void actionPerformed(ActionEvent e)

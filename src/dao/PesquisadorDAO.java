@@ -1,69 +1,63 @@
 package dao;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import modelo.Pesquisador;
 
-import modelo.*;
+import modelo.AreaFormacao;
+import modelo.Curso;
+import modelo.Pesquisador;
 
 public class PesquisadorDAO
 {
-	ConnectionFactory conexao = null;
-	private Statement comando;
 
-	public PesquisadorDAO() throws Exception
-	{
-		conexao = ConnectionFactory.getInstance();
-		try
-		{
-			this.comando = conexao.getConnection().createStatement();
-		}
-		catch (SQLException e)
-		{
-			throw e;
-		}
-	}
+
+	public PesquisadorDAO() {}
 
 	public long inserir(Pesquisador pesquisador) throws Exception
 	{
-		String sql = "INSERT INTO pesquisador "
-				+ "(nome,nome_cientifico,email,sexo,classe,titulacao,curso_vinculado,areaformacao) VALUES('"
-				+ pesquisador.getNome() + "','"
-				+ pesquisador.getNome_cientifico() + "','"
-				+ pesquisador.getEmail() + "','" + pesquisador.getSexo()
-				+ "','" + pesquisador.getClasse() + "','"
-				+ pesquisador.getTitulacao() + "','"
-				+ pesquisador.getCurso_vinculado().getId() + "','"
-				+ pesquisador.getAreaformacao().getId() + "')";
-		long x = 0;
+		String sql = "INSERT INTO pesquisador(nome,nome_cientifico,email,sexo,classe,titulacao,curso_vinculado,areaformacao) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+		long idGerado = 0;
+		
 		try
 		{
-			java.sql.PreparedStatement inserirReturnId = conexao
-					.getConnection().prepareStatement(sql,
-							Statement.RETURN_GENERATED_KEYS);
-			inserirReturnId.executeUpdate();
-			ResultSet rs = inserirReturnId.getGeneratedKeys();
+			PreparedStatement stmt = ConnectionFactory.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			stmt.setString(1, pesquisador.getNome());
+			stmt.setString(2, pesquisador.getNome_cientifico());
+			stmt.setString(3, pesquisador.getEmail());
+			stmt.setString(4, pesquisador.getSexo());
+			stmt.setString(5, pesquisador.getClasse());
+			stmt.setString(6, pesquisador.getTitulacao());
+			stmt.setLong(7, pesquisador.getCurso_vinculado().getId());
+			stmt.setLong(8, pesquisador.getAreaformacao().getId());
+			stmt.executeUpdate();
+				
+			ResultSet rs = stmt.getGeneratedKeys();
+			
 			if (rs.next())
-				x = rs.getLong(1);
+			{
+				idGerado = rs.getLong(1);
+			}
 		}
 		catch (SQLException e)
 		{
 			throw e;
 		}
-		return x;
+		
+		return idGerado;
 	}
 
 	public void remover(Pesquisador pesquisador) throws Exception
 	{
-		String sql = null;
-		long x = pesquisador.getId();
-		sql = "DELETE FROM pesquisador WHERE id = '" + x + "'";
+		String sql = "DELETE FROM pesquisador WHERE id = ?";
+	 
 		try
 		{
-			comando.executeUpdate(sql.toString());
+			PreparedStatement stmt = ConnectionFactory.getConnection().prepareStatement(sql);
+			stmt.setLong(1, pesquisador.getId());
+			stmt.executeUpdate();
 		}
 		catch (SQLException e)
 		{
@@ -73,21 +67,21 @@ public class PesquisadorDAO
 
 	public void atualizar(Pesquisador pesquisador) throws Exception
 	{
-		long x = pesquisador.getId();
-		String sql = "UPDATE pesquisador SET " + "nome = '"
-				+ pesquisador.getNome() + "'," + "nome_cientifico = '"
-				+ pesquisador.getNome_cientifico() + "'," + "email = '"
-				+ pesquisador.getEmail() + "'," + "sexo = '"
-				+ pesquisador.getSexo() + "'," + "classe = '"
-				+ pesquisador.getClasse() + "'," + "titulacao = '"
-				+ pesquisador.getTitulacao() + "'," + "curso_vinculado = '"
-				+ pesquisador.getCurso_vinculado().getId() + "',"
-				+ "areaformacao = '" + pesquisador.getAreaformacao().getId()
-				+ "'" + " WHERE id = '" + x + "'";
+		String sql = "UPDATE pesquisador SET  nome=?, nome_cientifico=?, email=?, sexo=?, classe=?, titulacao=?, curso_vinculado=?, areaformacao=? WHERE id=?";
 
 		try
 		{
-			comando.executeUpdate(sql.toString());
+			PreparedStatement stmt = ConnectionFactory.getConnection().prepareStatement(sql);
+			stmt.setString(1, pesquisador.getNome());
+			stmt.setString(2, pesquisador.getNome_cientifico());
+			stmt.setString(3, pesquisador.getEmail());
+			stmt.setString(4, pesquisador.getSexo());
+			stmt.setString(5, pesquisador.getClasse());
+			stmt.setString(6, pesquisador.getTitulacao());
+			stmt.setLong(7, pesquisador.getCurso_vinculado().getId());
+			stmt.setLong(8, pesquisador.getAreaformacao().getId());
+			stmt.setLong(9, pesquisador.getId());
+			stmt.executeUpdate(sql.toString());
 		}
 		catch (SQLException e)
 		{
@@ -97,44 +91,36 @@ public class PesquisadorDAO
 
 	public ArrayList<Pesquisador> listar(String condicao) throws Exception
 	{
-		ArrayList<Pesquisador> lista = new ArrayList<Pesquisador>();
+		String sql = "SELECT * FROM pesquisador " + condicao;
+		ArrayList<Pesquisador> listaPesquisador = new ArrayList<Pesquisador>();
+		
 		try
 		{
-			ResultSet rs = comando.executeQuery("SELECT * FROM pesquisador "
-					+ condicao);
+			PreparedStatement stmt = ConnectionFactory.getConnection().prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery();
+			
 			while (rs.next())
 			{
 				Pesquisador pesquisador = new Pesquisador();
 				pesquisador.setId(rs.getLong("id"));
-				// pesquisador.setId((Long)rs.getObject("id"));
 				pesquisador.setNome(rs.getString("nome"));
-				// pesquisador.setNome((String)rs.getObject("nome"));
 				pesquisador.setNome_cientifico(rs.getString("nome_cientifico"));
-				// pesquisador.setNome_cientifico((String)rs.getObject("nome_cientifico"));
 				pesquisador.setEmail(rs.getString("email"));
-				// pesquisador.setEmail((String)rs.getObject("email"));
 				pesquisador.setSexo(rs.getString("sexo"));
-				// pesquisador.setSexo((String)rs.getObject("sexo"));
 				pesquisador.setClasse(rs.getString("classe"));
-				// pesquisador.setClasse((String)rs.getObject("classe"));
 				pesquisador.setTitulacao(rs.getString("titulacao"));
-				// pesquisador.setTitulacao((String)rs.getObject("titulacao"));
-				pesquisador.setCurso_vinculado(new Curso(rs
-						.getLong("curso_vinculado")));
-				// pesquisador.setCurso_vinculado(new
-				// CursoMysql().listar(" WHERE id ="+(rs.getLong("curso_vinculado"))).get(0));
-				pesquisador.setAreaformacao(new AreaFormacao(rs
-						.getLong("areaformacao")));
-				// pesquisador.setAreaformacao(new
-				// AreaFormacaoMysql().listar(" WHERE id ="+(rs.getLong("areaformacao"))).get(0));
-				lista.add(pesquisador);
+				pesquisador.setCurso_vinculado(new Curso(rs.getLong("curso_vinculado")));
+				pesquisador.setAreaformacao(new AreaFormacao(rs.getLong("areaformacao")));
+				listaPesquisador.add(pesquisador);
 			}
+			
 			rs.close();
 		}
 		catch (SQLException e)
 		{
 			throw e;
 		}
-		return lista;
+		
+		return listaPesquisador;
 	}
 }

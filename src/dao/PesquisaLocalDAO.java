@@ -1,11 +1,11 @@
 package dao;
 
-import modelo.Local;
-
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
+
+import modelo.Local;
 
 /**
 * Created by natan on 16/07/14.
@@ -13,16 +13,25 @@ import java.util.ArrayList;
 public class PesquisaLocalDAO
 {
 
+    public PesquisaLocalDAO() {}
 
-    ConnectionFactory conexao = null;
-    private Statement comando;
-
-    public PesquisaLocalDAO() throws Exception
+    public void inserir(long pesquisaId, ArrayList<Local> locais) throws Exception
     {
-        conexao = ConnectionFactory.getInstance();
-        try
-        {
-            this.comando = conexao.getConnection().createStatement();
+    	String sql = "INSERT INTO pesquisalocal(id1,id2) VALUES (?, ?)";
+    	
+    	try
+    	{
+    		PreparedStatement stmt = ConnectionFactory.getConnection().prepareStatement(sql);
+    		
+	        for (Local local : locais)
+	        {
+	        	stmt.setLong(1, pesquisaId);
+	        	stmt.setLong(2, local.getId());
+	        	
+	        	stmt.execute();
+	        	
+	        	stmt.clearParameters();
+	        }
         }
         catch (SQLException e)
         {
@@ -30,31 +39,15 @@ public class PesquisaLocalDAO
         }
     }
 
-    public void inserir(long id, ArrayList<Local> lista)
-            throws Exception
+    public void remover(long pesquisaId) throws Exception
     {
-        for (Local x : lista)
-        {
-            String sql = "INSERT INTO pesquisalocal (id1,id2) VALUES("
-                    + id + "," + x.getId() + ")";
-            try
-            {
-                comando.execute(sql.toString());
-            }
-            catch (SQLException e)
-            {
-                throw e;
-            }
-        }
-    }
-
-    public void remover(long id) throws Exception
-    {
-        String sql = "DELETE FROM pesquisalocal WHERE id1 = "
-                + id;
+        String sql = "DELETE FROM pesquisalocal WHERE id1 = ?";
+        
         try
         {
-            comando.execute(sql.toString());
+        	PreparedStatement stmt = ConnectionFactory.getConnection().prepareStatement(sql);
+        	stmt.setLong(1, pesquisaId);
+            stmt.execute();
         }
         catch (SQLException e)
         {
@@ -62,23 +55,26 @@ public class PesquisaLocalDAO
         }
     }
 
-    public ArrayList<Local> listar(long id) throws Exception
+    public ArrayList<Local> listar(long pesquisaId) throws Exception
     {
-        ArrayList<Local> lista = new ArrayList<Local>();
-        if (id > 0)
+    	String sql = "SELECT * FROM pesquisalocal WHERE id1 = ?";
+        ArrayList<Local> listaLocal = new ArrayList<Local>();
+        
+        if (pesquisaId > 0)
         {
-            String sql = "SELECT * FROM pesquisalocal WHERE id1 = "
-                    + id;
             try
             {
-                ResultSet rs = comando.executeQuery(sql);
+            	PreparedStatement stmt = ConnectionFactory.getConnection().prepareStatement(sql);
+            	stmt.setLong(1, pesquisaId);
+                ResultSet rs = stmt.executeQuery();
+                LocalDAO ldao = new LocalDAO();
+                
                 while (rs.next())
                 {
-                    Local x = new LocalDAO()
-                            .listar(" WHERE id=" + (rs.getLong("id2"))).get(0);
-                    lista.add(x);
-                    // lista.add(new InstituicaoCooperadora(rs.getLong("id2")));
+                    Local local = ldao.listar(" WHERE id = " + rs.getLong("id2")).get(0);
+                    listaLocal.add(local);
                 }
+                
                 rs.close();
             }
             catch (SQLException e)
@@ -86,6 +82,7 @@ public class PesquisaLocalDAO
                 throw e;
             }
         }
-        return lista;
+        
+        return listaLocal;
     }
 }

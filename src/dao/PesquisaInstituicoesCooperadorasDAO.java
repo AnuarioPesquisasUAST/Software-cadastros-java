@@ -1,24 +1,33 @@
 package dao;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import modelo.*;
+
+import modelo.InstituicaoCooperadora;
 
 public class PesquisaInstituicoesCooperadorasDAO
 {
-	ConnectionFactory conexao = null;
-	private Statement comando;
 
-	public PesquisaInstituicoesCooperadorasDAO() throws Exception
+	public PesquisaInstituicoesCooperadorasDAO() {}
+
+	public void inserir(long pesquisaId, ArrayList<InstituicaoCooperadora> instituicoesCoopreadoras) throws Exception
 	{
-		conexao = ConnectionFactory.getInstance();
+		String sql = "INSERT INTO Pesquisainstituicoes_cooperadoras(id1, id2) VALUES(?, ?)";
+		
 		try
 		{
-			this.comando = conexao.getConnection().createStatement();
+			PreparedStatement stmt = ConnectionFactory.getConnection().prepareStatement(sql);
+			
+			for (InstituicaoCooperadora instCoop : instituicoesCoopreadoras)
+			{
+				stmt.setLong(1, pesquisaId);
+				stmt.setLong(2, instCoop.getId());
+				stmt.execute();
+				stmt.clearParameters();
+				
+			}
 		}
 		catch (SQLException e)
 		{
@@ -26,31 +35,15 @@ public class PesquisaInstituicoesCooperadorasDAO
 		}
 	}
 
-	public void inserir(long id, ArrayList<InstituicaoCooperadora> lista)
-			throws Exception
+	public void remover(long pesquisaId) throws Exception
 	{
-		for (InstituicaoCooperadora x : lista)
-		{
-			String sql = "INSERT INTO Pesquisainstituicoes_cooperadoras (id1,id2) VALUES("
-					+ id + "," + x.getId() + ")";
-			try
-			{
-				comando.execute(sql.toString());
-			}
-			catch (SQLException e)
-			{
-				throw e;
-			}
-		}
-	}
-
-	public void remover(long id) throws Exception
-	{
-		String sql = "DELETE FROM Pesquisainstituicoes_cooperadoras WHERE id1 = "
-				+ id;
+		String sql = "DELETE FROM Pesquisainstituicoes_cooperadoras WHERE id1 = ?";
+		
 		try
 		{
-			comando.execute(sql.toString());
+			PreparedStatement stmt = ConnectionFactory.getConnection().prepareStatement(sql);
+			stmt.setLong(1, pesquisaId);
+			stmt.execute();
 		}
 		catch (SQLException e)
 		{
@@ -58,23 +51,28 @@ public class PesquisaInstituicoesCooperadorasDAO
 		}
 	}
 
-	public ArrayList<InstituicaoCooperadora> listar(long id) throws Exception
+	public ArrayList<InstituicaoCooperadora> listar(long pesquisaId) throws Exception
 	{
-		ArrayList<InstituicaoCooperadora> lista = new ArrayList<InstituicaoCooperadora>();
-		if (id > 0)
+		String sql = "SELECT * FROM Pesquisainstituicoes_cooperadoras WHERE id1 = ?";
+		ArrayList<InstituicaoCooperadora> listaInstCoop = new ArrayList<InstituicaoCooperadora>();
+		
+		if (pesquisaId > 0)
 		{
-			String sql = "SELECT * FROM Pesquisainstituicoes_cooperadoras WHERE id1 = "
-					+ id;
+		
 			try
 			{
-				ResultSet rs = comando.executeQuery(sql);
+				PreparedStatement stmt = ConnectionFactory.getConnection().prepareStatement(sql);
+				stmt.setLong(1, pesquisaId);
+				
+				ResultSet rs = stmt.executeQuery();
+				InstituicaoCooperadoraDAO idao = new InstituicaoCooperadoraDAO();
+				
 				while (rs.next())
 				{
-					InstituicaoCooperadora x = new InstituicaoCooperadoraDAO()
-							.listar(" WHERE id=" + (rs.getLong("id2"))).get(0);
-					lista.add(x);
-					// lista.add(new InstituicaoCooperadora(rs.getLong("id2")));
+					InstituicaoCooperadora instituicaoCooperadora = idao.listar("WHERE id = " + rs.getLong("id2")).get(0);
+					listaInstCoop.add(instituicaoCooperadora);
 				}
+				
 				rs.close();
 			}
 			catch (SQLException e)
@@ -82,6 +80,6 @@ public class PesquisaInstituicoesCooperadorasDAO
 				throw e;
 			}
 		}
-		return lista;
+		return listaInstCoop;
 	}
 }

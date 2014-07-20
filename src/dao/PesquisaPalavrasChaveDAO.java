@@ -1,24 +1,32 @@
 package dao;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import modelo.*;
+
+import modelo.PalavraChave;
 
 public class PesquisaPalavrasChaveDAO
 {
-	ConnectionFactory conexao = null;
-	private Statement comando;
 
-	public PesquisaPalavrasChaveDAO() throws Exception
+	public PesquisaPalavrasChaveDAO() {}
+
+	public void inserir(long pesquisaId, ArrayList<PalavraChave> palavrasChave) throws Exception
 	{
-		conexao = ConnectionFactory.getInstance();
+		String sql = "INSERT INTO Pesquisapalavras_chave(id1, id2) VALUES (?, ?)";
+		
 		try
 		{
-			this.comando = conexao.getConnection().createStatement();
+			PreparedStatement stmt = ConnectionFactory.getConnection().prepareStatement(sql);
+			
+			for (PalavraChave palavraChave : palavrasChave)
+			{
+					stmt.setLong(1, pesquisaId);
+					stmt.setLong(2, palavraChave.getId());
+					stmt.execute();
+					stmt.clearParameters();
+			}
 		}
 		catch (SQLException e)
 		{
@@ -26,30 +34,15 @@ public class PesquisaPalavrasChaveDAO
 		}
 	}
 
-	public void inserir(long id, ArrayList<PalavraChave> lista)
-			throws Exception
+	public void remover(long pesquisaId) throws Exception
 	{
-		for (PalavraChave x : lista)
-		{
-			String sql = "INSERT INTO Pesquisapalavras_chave (id1,id2) VALUES("
-					+ id + "," + x.getId() + ")";
-			try
-			{
-				comando.execute(sql.toString());
-			}
-			catch (SQLException e)
-			{
-				throw e;
-			}
-		}
-	}
-
-	public void remover(long id) throws Exception
-	{
-		String sql = "DELETE FROM Pesquisapalavras_chave WHERE id1 = " + id;
+		String sql = "DELETE FROM Pesquisapalavras_chave WHERE id1 = ?";
+		
 		try
 		{
-			comando.execute(sql.toString());
+			PreparedStatement stmt = ConnectionFactory.getConnection().prepareStatement(sql);
+			stmt.setLong(1, pesquisaId);
+			stmt.execute();
 		}
 		catch (SQLException e)
 		{
@@ -57,23 +50,27 @@ public class PesquisaPalavrasChaveDAO
 		}
 	}
 
-	public ArrayList<PalavraChave> listar(long id) throws Exception
+	public ArrayList<PalavraChave> listar(long pesquisaId) throws Exception
 	{
-		ArrayList<PalavraChave> lista = new ArrayList<PalavraChave>();
-		if (id > 0)
+		String sql = "SELECT * FROM Pesquisapalavras_chave WHERE id1 = ?";
+		ArrayList<PalavraChave> listaPalavraChave = new ArrayList<PalavraChave>();
+		
+		if (pesquisaId > 0)
 		{
-			String sql = "SELECT * FROM Pesquisapalavras_chave WHERE id1 = "
-					+ id;
+			
 			try
 			{
-				ResultSet rs = comando.executeQuery(sql);
+				PreparedStatement stmt = ConnectionFactory.getConnection().prepareStatement(sql);
+				stmt.setLong(1, pesquisaId);
+				ResultSet rs = stmt.executeQuery();
+				PalavraChaveDAO pcdao = new PalavraChaveDAO();
+				
 				while (rs.next())
 				{
-					PalavraChave x = new PalavraChaveDAO().listar(
-							" WHERE id=" + (rs.getLong("id2"))).get(0);
-					lista.add(x);
-					// lista.add(new PalavraChave(rs.getLong("id2")));
+					PalavraChave palavraChave = pcdao.listar("WHERE id = " + rs.getLong("id2")).get(0);
+					listaPalavraChave.add(palavraChave);
 				}
+				
 				rs.close();
 			}
 			catch (SQLException e)
@@ -81,6 +78,7 @@ public class PesquisaPalavrasChaveDAO
 				throw e;
 			}
 		}
-		return lista;
+		
+		return listaPalavraChave;
 	}
 }

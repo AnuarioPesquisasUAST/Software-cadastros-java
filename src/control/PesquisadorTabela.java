@@ -29,12 +29,12 @@ public class PesquisadorTabela extends Control
 		ArrayList<String> colunas = new ArrayList<String>();
 		colunas.add("id");
 		colunas.add("nome");
-		colunas.add("nome_cientifico");
+		colunas.add("nomeCientifico");
 		colunas.add("email");
 		colunas.add("sexo");
 		colunas.add("classe");
 		colunas.add("titulacao");
-		colunas.add("curso_vinculado");
+		colunas.add("cursoVinculado");
 		colunas.add("areaformacao");
 		Object linhas[][] = new Object[list.size()][];
 		int i = 0;
