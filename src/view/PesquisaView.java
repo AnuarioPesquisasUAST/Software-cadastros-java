@@ -332,9 +332,11 @@ public class PesquisaView extends JFrame
 			layout.row().grid(new JLabel("Instituições cooperadoras:"))
 					.add(instituicoes_cooperadoras);
             layout.row().grid(new JLabel("Locais:")).add(locais);
-
-			layout.row().grid(new JLabel("Resumo:")).add(resumo);
-
+            
+            
+			layout.row().grid(new JLabel("Resumo:")).add(new JScrollPane(resumo));
+			//layout.row().grid().spanRow();
+			
 			layout.row().grid().add(salvar, 1);
 			JScrollPane scroll = new JScrollPane(pp);
 			scroll.setAutoscrolls(true);
